@@ -1,12 +1,11 @@
 public abstract class Entidade {
-    protected int id;
+    protected String label;
 
-    public void setId(int id){
-        if(id > 0)
-            this.id = id;
+    public void setLabel(String label){
+        this.label = label;
     }
 
-    public int getId(){
-        return this.id;
+    public String getLabel(){
+        return this.label;
     }
 }

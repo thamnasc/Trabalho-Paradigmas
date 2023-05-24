@@ -1,7 +1,7 @@
 public class Tabuleiro {
-    private Entidade matriz;
+    private Entidade[][] matriz;
 
-    public Tabuleiro(){}
+    //public Tabuleiro(){}
 
     public Tabuleiro(){
         // adicionar jogadores a posição tal
@@ -11,22 +11,25 @@ public class Tabuleiro {
         this.setTabuleiro(matrizAux);
     }
 
-    public void setTabuleiro(Entidade matriz){
+    public void setTabuleiro(Entidade[][] matriz){
         this.matriz = matriz;
     }
 
     public void imprimirTabuleiro(){
         String linha = "+----+----+----+----+----+----+----+----+----+";
 
-        for (int i = 1; i <= 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             System.out.println(linha);
-            for (int j = 1; j <= 9; j++)
+            for (int j = 0; j < 9; j++)
             {
                 
-                    System.out.println("|"+this.matriz[i][j]);
+                System.out.print("|"+this.matriz[i][j]);
             }
+            System.out.print("|");
+            System.out.print("\n");
         }
+        System.out.println(linha);
     }
     
 }
