@@ -16,18 +16,15 @@ public class Tabuleiro {
     }
 
     public void imprimirTabuleiro(){
-
-        for (int j = 1; j <= 9; j++)
-        {
-            System.out.println("+----");       
-        }
+        String linha = "+----+----+----+----+----+----+----+----+----+";
 
         for (int i = 1; i <= 9; i++)
         {
+            System.out.println(linha);
             for (int j = 1; j <= 9; j++)
             {
                 
-                    
+                    System.out.println("|"+this.matriz[i][j]);
             }
         }
     }
