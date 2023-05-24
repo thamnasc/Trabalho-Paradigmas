@@ -1,7 +1,7 @@
 public class Jogador extends Entidade implements Movimentacao {
     private Item item;
     
-    public movimentar(){
+    public void movimentar(){
         System.out.println("Movimentando...");
-    }
+    } 
 }
