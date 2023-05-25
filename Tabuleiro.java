@@ -4,10 +4,11 @@ public class Tabuleiro {
     //public Tabuleiro(){}
 
     public Tabuleiro(){
-        // adicionar jogadores a posição tal
-        // gerar itens aleatórios
-        // 
         Entidade[][] matrizAux = new Entidade[9][9];
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j <9; j++)
+                matrizAux[i][j] = new Setor (" ");
+        matrizAux[0][4] = new Jogador("J1");
         this.setTabuleiro(matrizAux);
     }
 
