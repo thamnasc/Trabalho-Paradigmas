@@ -1,11 +1,22 @@
 public abstract class Entidade {
     protected String label;
 
-    public void setLabel(String label){
+    public Entidade(){}
+    public Entidade(String label)
+    {
+        this.setLabel(label);
+    }
+    public void setLabel(String label)
+    {
         this.label = label;
     }
-
-    public String getLabel(){
+    public String getLabel()
+    {
         return this.label;
+    }
+    @Override
+    public String toString()
+    {
+        return String.format(" " + this.label + " ");
     }
 }

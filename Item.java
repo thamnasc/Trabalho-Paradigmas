@@ -1,3 +1,3 @@
-public class Item extends Entidade implements Movimentacao {
+public class Item extends Entidade {
 
 }
