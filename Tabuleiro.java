@@ -24,7 +24,7 @@ public class Tabuleiro {
         while (indisponivel) {
             i = aleatorio(0,8);
             j = aleatorio(0,8);
-            if (!matrizAux[i][j].toString().equals("  "))
+            if (matrizAux[i][j].toString().equals("  "))
                 indisponivel = false;
         }
         matrizAux[i][j] = new Setor("XX");
