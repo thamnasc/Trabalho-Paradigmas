@@ -4,27 +4,19 @@ public class Tabuleiro {
     private Entidade[][] matriz;
 
     public Tabuleiro(int numJ)
-    {
+    { 
         Entidade[][] matrizAux = new Entidade[9][9];
-        for (int i = 0; i < 9; i++)
-            for (int j = 0; j < 9; j++)
-                matrizAux[i][j] = new Setor("  ");
-        if (numJ >= 1)
-            matrizAux[0][4] = new Jogador("J1");
-        if (numJ >= 2)
-            matrizAux[8][4] = new Jogador("J2");
-        if (numJ >= 3)
-            matrizAux[4][8] = new Jogador("J3");
-        if (numJ == 4)
-            matrizAux[4][0] = new Jogador("J4");
-
+        this.setTabuleiro(matrizAux);
+        posicionaSetores();
+        posicionaJogadores(numJ);        
+        posicionaFakeNews();
 
         boolean indisponivel = true;
         int i = 0, j = 0;
         while (indisponivel) {
             i = aleatorio(0,8);
             j = aleatorio(0,8);
-            if (matrizAux[i][j].toString().equals("  "))
+            if (matrizAux[i][j].toString().equals("    "))
                 indisponivel = false;
         }
         matrizAux[i][j] = new Setor("XX");
@@ -47,7 +39,7 @@ public class Tabuleiro {
         }
         System.out.println(linha);
     }
-    private int aleatorio(int min, int max)
+    public int aleatorio(int min, int max)
     {
         Random aleatorio = new Random();
         return aleatorio.nextInt(max-min+1) + min;
@@ -58,5 +50,30 @@ public class Tabuleiro {
         // de [0,8] não incluindo 8. No final, precisamos ajustar qual 
         // é o intervalo inicial (min), então somamos min.
     }
+    public void posicionaJogadores (int numJ){
+        if (numJ >= 1)
+            this.matriz[0][4] = new Jogador("J1");
+        if (numJ >= 2)
+            this.matriz[8][4] = new Jogador("J2");
+        if (numJ >= 3)
+            this.matriz[4][8] = new Jogador("J3");
+        if (numJ == 4)
+            this.matriz[4][0] = new Jogador("J4");
+    }
+    public void posicionaFakeNews (){
+        int i;
+        for (i = 1; i <=2; i++){
+            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews1("FN");
+            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews2("FN");
+            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews3("FN");
+        }
+            
+    }
+    public void posicionaSetores(){
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                this.matriz[i][j] = new Setor("  ");
+    }
     
+
 }
