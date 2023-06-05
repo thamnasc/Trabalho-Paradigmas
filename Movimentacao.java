@@ -1,3 +1,3 @@
 public interface Movimentacao {
-    public abstract void movimentar();// não sei o tipo de retorno
-}
+    public abstract void movimentar(String direcao);// não sei o tipo de retorno
+} 
