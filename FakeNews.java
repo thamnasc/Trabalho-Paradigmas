@@ -1,2 +1,6 @@
-public abstract class FakeNews extends Entidade implements Movimentacao {
+public abstract class FakeNews extends Entidade {
+        public FakeNews (String label){
+            super(label);
+        }
+        
 }
