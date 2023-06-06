@@ -77,6 +77,8 @@ public class Tabuleiro {
         {
             encontraSetorDisponivel(1, 7);
             this.matriz[this.posicaoX][this.posicaoY] = f.get(i);
+            f.get(i).setPosicaoX(this.posicaoX);
+            f.get(i).setPosicaoY(this.posicaoY);
         }
     }
     private void encontraSetorDisponivel(int min, int max)
