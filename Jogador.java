@@ -1,4 +1,4 @@
-public class Jogador extends Entidade {
+public class Jogador extends Entidade implements Movimentacao {
     //private Item item;
     
     public Jogador(String label)

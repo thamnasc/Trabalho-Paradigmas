@@ -1,30 +1,32 @@
-import java.util.Random;
+import java.util.*;
 
 public class Tabuleiro {
     private Entidade[][] matriz;
+    private int posicaoX;
+    private int posicaoY;
 
-    public Tabuleiro(int numJ)
+    public Tabuleiro(LinkedList<Jogador> j, LinkedList<FakeNews> f)
     { 
         Entidade[][] matrizAux = new Entidade[9][9];
         this.setTabuleiro(matrizAux);
-        posicionaSetores();
-        posicionaJogadores(numJ);        
-        posicionaFakeNews();
-
-        boolean indisponivel = true;
-        int i = 0, j = 0;
-        while (indisponivel) {
-            i = aleatorio(0,8);
-            j = aleatorio(0,8);
-            if (matrizAux[i][j].toString().equals("    "))
-                indisponivel = false;
-        }
-        matrizAux[i][j] = new Setor("XX");
-        this.setTabuleiro(matrizAux);
+        inicializaTabuleiro();
+        posicionaJogadores(j);        
+        posicionaSetoresXX();
+        posicionaFakeNews(f);
     }
-    public void setTabuleiro(Entidade[][] matriz)
+    private void setTabuleiro(Entidade[][] matriz)
     {
         this.matriz = matriz;
+    }
+    private void setPosicaoX(int x)
+    {
+        if (x >= 0 && x <= 8)
+            this.posicaoX = x;
+    }
+    private void setPosicaoY(int y)
+    {
+        if (y >= 0 && y <= 8)
+            this.posicaoY = y;
     }
     public void imprimirTabuleiro()
     {
@@ -39,7 +41,7 @@ public class Tabuleiro {
         }
         System.out.println(linha);
     }
-    public int aleatorio(int min, int max)
+    private int aleatorio(int min, int max)
     {
         Random aleatorio = new Random();
         return aleatorio.nextInt(max-min+1) + min;
@@ -50,30 +52,42 @@ public class Tabuleiro {
         // de [0,8] não incluindo 8. No final, precisamos ajustar qual 
         // é o intervalo inicial (min), então somamos min.
     }
-    public void posicionaJogadores (int numJ){
-        if (numJ >= 1)
-            this.matriz[0][4] = new Jogador("J1");
-        if (numJ >= 2)
-            this.matriz[8][4] = new Jogador("J2");
-        if (numJ >= 3)
-            this.matriz[4][8] = new Jogador("J3");
-        if (numJ == 4)
-            this.matriz[4][0] = new Jogador("J4");
-    }
-    public void posicionaFakeNews (){
-        int i;
-        for (i = 1; i <=2; i++){
-            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews1("FN");
-            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews2("FN");
-            this.matriz[aleatorio(1, 7)][aleatorio(1, 7)] = new FakeNews3("FN");
-        }
-            
-    }
-    public void posicionaSetores(){
+    private void inicializaTabuleiro()
+    {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 this.matriz[i][j] = new Setor("  ");
     }
-    
-
+    private void posicionaSetoresXX()
+    {
+        encontraSetorDisponivel(0, 8);
+        this.matriz[this.posicaoX][this.posicaoY] = new Setor("XX");
+        encontraSetorDisponivel(0, 8);
+        this.matriz[this.posicaoX][this.posicaoY] = new Setor("XX");
+    }
+    private void posicionaJogadores(LinkedList<Jogador> j)
+    {
+        for (int i = 0; i < j.size(); i++)
+            this.matriz[j.get(i).getPosicaoX()][j.get(i).getPosicaoY()] = j.get(i);
+    }
+    private void posicionaFakeNews(LinkedList<FakeNews> f)
+    {
+        // inicialmente, as fakenews não podem estar nas linhas e colunas 1 e 9
+        for (int i = 0; i < f.size(); i++)
+        {
+            encontraSetorDisponivel(1, 7);
+            this.matriz[this.posicaoX][this.posicaoY] = f.get(i);
+        }
+    }
+    private void encontraSetorDisponivel(int min, int max)
+    {
+        int x, y;
+        do
+        {
+            x = aleatorio(min, max);
+            y = aleatorio(min, max);
+        } while (!this.matriz[x][y].toString().equals("    "));
+        this.setPosicaoX(x);
+        this.setPosicaoY(y);
+    }
 }

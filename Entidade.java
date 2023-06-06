@@ -1,5 +1,5 @@
 import java.util.Random;
-public abstract class Entidade implements Movimentacao{
+public abstract class Entidade {
     protected String label;
     protected int posicaoX;
     protected int posicaoY;
