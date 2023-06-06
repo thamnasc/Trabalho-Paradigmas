@@ -43,6 +43,14 @@ public class Jogo {
     {
         return this.tabuleiro;
     }
+    public LinkedList<Jogador> getJogadores()
+    {
+        return this.jogadores;
+    }
+    public LinkedList<FakeNews> getFakenews()
+    {
+        return this.fakenews;
+    }
     private void criaJogadores(int numJ)
     {
         if (numJ >= 1)

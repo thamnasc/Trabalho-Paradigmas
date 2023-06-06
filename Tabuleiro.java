@@ -8,13 +8,13 @@ public class Tabuleiro {
     public Tabuleiro(LinkedList<Jogador> j, LinkedList<FakeNews> f)
     { 
         Entidade[][] matrizAux = new Entidade[9][9];
-        this.setTabuleiro(matrizAux);
+        this.setMatriz(matrizAux);
         inicializaTabuleiro();
         posicionaJogadores(j);        
         posicionaSetoresXX();
         posicionaFakeNews(f);
     }
-    private void setTabuleiro(Entidade[][] matriz)
+    private void setMatriz(Entidade[][] matriz)
     {
         this.matriz = matriz;
     }
@@ -22,6 +22,24 @@ public class Tabuleiro {
     {
         if (x >= 0 && x <= 8)
             this.posicaoX = x;
+    }
+    public boolean movimentaEntidade(String direcao, int x, int y)
+    {
+        this.matriz[x][y].movimentar(direcao);
+        int newX = this.matriz[x][y].getPosicaoX();
+        int newY = this.matriz[x][y].getPosicaoY();
+        boolean movimentoValido = newX >= 0 && newX <= 8 && newY >= 0 && newY <= 8;
+        if (!movimentoValido)
+        {
+            this.matriz[x][y].setPosicaoX(x);
+            this.matriz[x][y].setPosicaoY(y);
+        }
+        else
+        {
+            this.matriz[newX][newY] = this.matriz[x][y];
+            this.matriz[x][y] = new Setor("  ");
+        }
+        return movimentoValido;
     }
     private void setPosicaoY(int y)
     {

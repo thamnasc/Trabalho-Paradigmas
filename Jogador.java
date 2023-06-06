@@ -7,6 +7,22 @@ public class Jogador extends Entidade implements Movimentacao {
     }
     public void movimentar(String direcao)
     {
-        System.out.println("Movimentando...");
+        switch (direcao.toLowerCase())
+        {
+            case "n":
+                this.setPosicaoX(this.posicaoX-1);
+                break;
+            case "s":
+                this.setPosicaoX(this.posicaoX+1);
+                break;
+            case "l":
+                this.setPosicaoY(this.posicaoY+1);
+                break;
+            case "o":
+                this.setPosicaoY(this.posicaoY-1);
+                break;
+            default:
+                //alguma coisa
+        }
     }  
 }
