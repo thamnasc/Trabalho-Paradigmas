@@ -56,29 +56,29 @@ public class Jogo {
         if (numJ >= 1)
         {
             Jogador j1 = new Jogador("J1");
-            j1.setPosicaoX(0);
-            j1.setPosicaoY(4);
+            j1.setLinha(0);
+            j1.setColuna(4);
             jogadores.addFirst(j1);
         }
         if (numJ >= 2) 
         {
             Jogador j2 = new Jogador("J2");
-            j2.setPosicaoX(8);
-            j2.setPosicaoY(4);
+            j2.setLinha(8);
+            j2.setColuna(4);
             jogadores.addLast(j2);
         }
         if (numJ >= 3) 
         {
             Jogador j3 = new Jogador("J3");
-            j3.setPosicaoX(4);
-            j3.setPosicaoY(8);
+            j3.setLinha(4);
+            j3.setColuna(8);
             jogadores.addLast(j3);
         }
         if (numJ == 4)
         {
             Jogador j4 = new Jogador("J4");
-            j4.setPosicaoX(4);
-            j4.setPosicaoY(0);
+            j4.setLinha(4);
+            j4.setColuna(0);
             jogadores.addLast(j4);
         }
     }

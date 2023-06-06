@@ -10,19 +10,19 @@ public class Jogador extends Entidade implements Movimentacao {
         switch (direcao.toLowerCase())
         {
             case "n":
-                this.setPosicaoX(this.posicaoX-1);
+                this.setLinha(this.linha-1);
                 break;
             case "s":
-                this.setPosicaoX(this.posicaoX+1);
+                this.setLinha(this.linha+1);
                 break;
             case "l":
-                this.setPosicaoY(this.posicaoY+1);
+                this.setColuna(this.coluna+1);
                 break;
             case "o":
-                this.setPosicaoY(this.posicaoY-1);
+                this.setColuna(this.coluna-1);
                 break;
             default:
-                //alguma coisa
+                //precisa implementar algo para quando o jogador digitar alguma letra inesperada
         }
     }  
 }

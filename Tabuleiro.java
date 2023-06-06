@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Tabuleiro {
     private Entidade[][] matriz;
-    private int posicaoX;
-    private int posicaoY;
+    private int linha;
+    private int coluna;
 
     public Tabuleiro(LinkedList<Jogador> j, LinkedList<FakeNews> f)
     { 
@@ -18,33 +18,36 @@ public class Tabuleiro {
     {
         this.matriz = matriz;
     }
-    private void setPosicaoX(int x)
+    private void setLinha(int linha)
     {
-        if (x >= 0 && x <= 8)
-            this.posicaoX = x;
+        if (linha >= 0 && linha <= 8)
+            this.linha = linha;
     }
-    public boolean movimentaEntidade(String direcao, int x, int y)
+    private void setColuna(int coluna)
     {
-        this.matriz[x][y].movimentar(direcao);
-        int newX = this.matriz[x][y].getPosicaoX();
-        int newY = this.matriz[x][y].getPosicaoY();
-        boolean movimentoValido = newX >= 0 && newX <= 8 && newY >= 0 && newY <= 8;
+        if (coluna >= 0 && coluna <= 8)
+            this.coluna = coluna;
+    }
+    public boolean movimentaEntidade(String direcao, int l, int c)
+    {
+        Jogador j = (Jogador) this.matriz[l][c];
+        //if (this.matriz[l][c] instanceof Jogador) 
+        j.movimentar(direcao);
+        int newL = j.getLinha();
+        int newC = j.getColuna();
+
+        boolean movimentoValido = newL >= 0 && newL <= 8 && newC >= 0 && newC <= 8;
         if (!movimentoValido)
         {
-            this.matriz[x][y].setPosicaoX(x);
-            this.matriz[x][y].setPosicaoY(y);
+            j.setLinha(l);
+            j.setColuna(c);
         }
         else
         {
-            this.matriz[newX][newY] = this.matriz[x][y];
-            this.matriz[x][y] = new Setor("  ");
+            this.matriz[newL][newC] = j;
+            this.matriz[l][c] = new Setor("  ");
         }
         return movimentoValido;
-    }
-    private void setPosicaoY(int y)
-    {
-        if (y >= 0 && y <= 8)
-            this.posicaoY = y;
     }
     public void imprimirTabuleiro()
     {
@@ -79,14 +82,14 @@ public class Tabuleiro {
     private void posicionaSetoresXX()
     {
         encontraSetorDisponivel(0, 8);
-        this.matriz[this.posicaoX][this.posicaoY] = new Setor("XX");
+        this.matriz[this.linha][this.coluna] = new Setor("XX");
         encontraSetorDisponivel(0, 8);
-        this.matriz[this.posicaoX][this.posicaoY] = new Setor("XX");
+        this.matriz[this.linha][this.coluna] = new Setor("XX");
     }
     private void posicionaJogadores(LinkedList<Jogador> j)
     {
         for (int i = 0; i < j.size(); i++)
-            this.matriz[j.get(i).getPosicaoX()][j.get(i).getPosicaoY()] = j.get(i);
+            this.matriz[j.get(i).getLinha()][j.get(i).getColuna()] = j.get(i);
     }
     private void posicionaFakeNews(LinkedList<FakeNews> f)
     {
@@ -94,20 +97,20 @@ public class Tabuleiro {
         for (int i = 0; i < f.size(); i++)
         {
             encontraSetorDisponivel(1, 7);
-            this.matriz[this.posicaoX][this.posicaoY] = f.get(i);
-            f.get(i).setPosicaoX(this.posicaoX);
-            f.get(i).setPosicaoY(this.posicaoY);
+            this.matriz[this.linha][this.coluna] = f.get(i);
+            f.get(i).setLinha(this.linha);
+            f.get(i).setColuna(this.coluna);
         }
     }
     private void encontraSetorDisponivel(int min, int max)
     {
-        int x, y;
+        int l, c;
         do
         {
-            x = aleatorio(min, max);
-            y = aleatorio(min, max);
-        } while (!this.matriz[x][y].toString().equals("    "));
-        this.setPosicaoX(x);
-        this.setPosicaoY(y);
+            l = aleatorio(min, max);
+            c = aleatorio(min, max);
+        } while (!this.matriz[l][c].toString().equals("    "));
+        this.setLinha(l);
+        this.setColuna(c);
     }
 }

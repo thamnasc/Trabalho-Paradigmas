@@ -1,8 +1,9 @@
 import java.util.Random;
+
 public abstract class Entidade {
     protected String label;
-    protected int posicaoX;
-    protected int posicaoY;
+    protected int linha;
+    protected int coluna;
 
     public Entidade(){}
     public Entidade(String label)
@@ -18,26 +19,23 @@ public abstract class Entidade {
     {
         return this.label;
     }
-    public void setPosicaoX (int posicaoX){
-        this.posicaoX = posicaoX;
+    public void setLinha (int linha){
+        this.linha = linha;
     }
-    public void setPosicaoY(int posicaoY) {
-        this.posicaoY = posicaoY;
+    public void setColuna(int coluna) {
+        this.coluna = coluna;
     }
-    public int getPosicaoX() {
-        return this.posicaoX;
+    public int getLinha() {
+        return this.linha;
     }
-    public int getPosicaoY() {
-        return this.posicaoY;
+    public int getColuna() {
+        return this.coluna;
     }
-
-
     @Override
     public String toString()
     {
         return String.format(" " + this.label + " ");
     }
-
     public int aleatorio(int min, int max)
     {
         Random aleatorio = new Random();
@@ -49,16 +47,4 @@ public abstract class Entidade {
         // de [0,8] não incluindo 8. No final, precisamos ajustar qual 
         // é o intervalo inicial (min), então somamos min.
     }
-    
-    public void movimentar(String direcao){
-        if (direcao.equals("S"))
-            this.setPosicaoY(this.posicaoY + 1);
-        else if (direcao.equals("N"))
-            this.setPosicaoY( this.posicaoY- 1);
-        else if (direcao.equals("L"))
-            this.setPosicaoX(this.posicaoX + 1);
-        else if (direcao.equals("O"))
-            this.setPosicaoX(this.posicaoX - 1);
-    }
-
 }
