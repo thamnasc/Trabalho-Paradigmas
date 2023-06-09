@@ -31,7 +31,9 @@ public class Jogador extends Personagem {
                 this.setColuna(this.coluna-1);
                 break;
             default:
-                //precisa implementar algo para quando o jogador digitar alguma letra inesperada
+                this.setLinha(-1);
+                this.setColuna(-1);
+                break;
         }
     }  
 }

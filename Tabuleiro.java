@@ -30,6 +30,14 @@ public class Tabuleiro {
         if (coluna >= 0 && coluna <= 8)
             this.coluna = coluna;
     }
+    public int getLinha()
+    {
+        return this.linha;
+    }
+    public int getColuna()
+    {
+        return this.coluna;
+    }
     public String movimentaPersonagem(String direcao, int l, int c)
     {
         Personagem p = (Personagem) this.matriz[l][c];
@@ -45,7 +53,7 @@ public class Tabuleiro {
             {
                 p.setLinha(l);
                 p.setColuna(c);
-                return "Movimento Inválido";
+                return "Movimento inválido";
             }
             else // se saiu da borda, fakeNews é eliminada
             {
@@ -53,8 +61,8 @@ public class Tabuleiro {
                 return "Eliminado";
             }
         }
-
-        if (this.matriz[newL][newC].getLabel().equals(" XX "))
+        
+        if (this.matriz[newL][newC].toString().equals(" XX "))
         {
             this.matriz[l][c] = new Setor("  ");
             return "Eliminado";
@@ -101,12 +109,14 @@ public class Tabuleiro {
         
         if (e instanceof Jogador)
         {
-            this.setLinha(l);
-            this.setColuna(c);
+            j.setLinha(l);
+            j.setColuna(c);
             return "Movimento inválido";
         }
 
         // se for um setor normal
+        this.matriz[newL][newC] = j;
+        this.matriz[l][c] = new Setor("  ");
         return "Movimento válido";
     }
     private String movimentaFakeNews(FakeNews f, int l, int c)
@@ -122,25 +132,42 @@ public class Tabuleiro {
             Caso uma fake news colida com um item presente em uma posição do tabuleiro, a
             mesma elimina o item do tabuleiro e cria uma cópia dela mesma em uma das 8 (oito)
             posições adjacentes livres, ou seja, a fake news é duplicada.
-            */
+            */ 
+            this.matriz[newL][newC] = f; 
+            this.matriz[l][c] = new Setor("  ");
             // gera outro item aleatório no tabuleiro
             this.geraItem();
+
+            // duplica-se
+            this.sorteiaSetorAdjacente(newL, newC);
+            if (f instanceof FakeNews1)
+                this.matriz[this.linha][this.coluna] = new FakeNews1("F1");
+            else if (f instanceof FakeNews2)
+                this.matriz[this.linha][this.coluna] = new FakeNews2("F2");
+            else 
+                this.matriz[this.linha][this.coluna] = new FakeNews3("F3");
+
             return "Movimento válido";
         }
 
         if (e instanceof Jogador)
         {
+            this.matriz[newL][newC] = f;
+            this.matriz[l][c] = new Setor("  ");
             // elimina jogador
         }
 
         if (e instanceof FakeNews)
         {
+            f.setLinha(l);
+            f.setColuna(c);
             return "Movimento inválido";
         }
 
         // se for um setor normal
+        this.matriz[newL][newC] = f;
+        this.matriz[l][c] = new Setor("  ");
         return "Movimento válido";
-
     }
     public void imprimirTabuleiro()
     {
@@ -212,5 +239,16 @@ public class Tabuleiro {
         encontraSetorDisponivel(0, 8);
         Item i = new Item("??");
         this.matriz[this.linha][this.coluna] = i;
+    }
+    private void sorteiaSetorAdjacente(int linha, int coluna)
+    {
+        int newL, newC;
+        do 
+        {
+            newL = aleatorio(-1, 1);
+            newC = aleatorio(-1, 1);
+        } while (!this.matriz[newL][newC].equals("    "));
+        this.setLinha(this.linha + newL);
+        this.setColuna(this.coluna + newC);
     }
 }
