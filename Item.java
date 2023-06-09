@@ -10,14 +10,14 @@ public class Item extends Inerte {
         c - Ler uma notícia real
         d - Ouvir um boato
     */
-    private Char tipo;
+    private char tipo;
 
     public Item(String label)
     {
         super(label);
         this.sorteiaTipo();
     }
-    private setTipo(int tipo)
+    private void setTipo(int tipo)
     {
         switch (tipo)
         {
@@ -34,11 +34,11 @@ public class Item extends Inerte {
                 this.tipo = 'd';
         }
     }
-    public getTipo()
+    public char getTipo()
     {
         return this.tipo;
     }
-    private int sorteiaTipo()
+    private void sorteiaTipo()
     {
         this.setTipo(aleatorio(1, 4));
     }

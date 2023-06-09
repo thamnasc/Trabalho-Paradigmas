@@ -32,7 +32,7 @@ public class Tabuleiro {
     }
     public String movimentaPersonagem(String direcao, int l, int c)
     {
-        Personagem p = this.matriz[l][c];
+        Personagem p = (Personagem) this.matriz[l][c];
         p.movimentar(direcao);
         int newL = p.getLinha();
         int newC = p.getColuna();
@@ -60,11 +60,15 @@ public class Tabuleiro {
             return "Eliminado";
         }
 
+        String mensagem = "";
+
         if (p instanceof Jogador)
-            return movimentaJogador((Jogador) p, l, c);
+            mensagem = movimentaJogador((Jogador) p, l, c);
 
         if (p instanceof FakeNews)
-            return movimentaFakeNews((FakeNews) p, l, c);
+            mensagem =  movimentaFakeNews((FakeNews) p, l, c);
+
+        return mensagem;
     }
     private String movimentaJogador(Jogador j, int l, int c)
     {
@@ -76,7 +80,7 @@ public class Tabuleiro {
         if (e instanceof Item)
         {
             // armazena item
-            j.setItem(e);
+            j.setItem((Item) e);
 
             // TODO: verifica se o jogador ouviu um boato
 
@@ -107,8 +111,8 @@ public class Tabuleiro {
     }
     private String movimentaFakeNews(FakeNews f, int l, int c)
     {
-        int newL = j.getLinha();
-        int newC = j.getColuna();
+        int newL = f.getLinha();
+        int newC = f.getColuna();
 
         Entidade e = this.matriz[newL][newC];
 

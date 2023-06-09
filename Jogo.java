@@ -49,7 +49,7 @@ public class Jogo {
     }
     public LinkedList<FakeNews> getFakenews()
     {
-        return this.fakenews;
+        return this.fakeNews;
     }
     private void criaJogadores(int numJ)
     {
