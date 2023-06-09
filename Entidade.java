@@ -5,12 +5,10 @@ public abstract class Entidade {
     protected int linha;
     protected int coluna;
 
-    public Entidade(){}
     public Entidade(String label)
     { 
         this.setLabel(label);
     }
-
     public void setLabel(String label)
     {
         this.label = label;
