@@ -123,6 +123,8 @@ public class Tabuleiro {
             mesma elimina o item do tabuleiro e cria uma cópia dela mesma em uma das 8 (oito)
             posições adjacentes livres, ou seja, a fake news é duplicada.
             */
+            // gera outro item aleatório no tabuleiro
+            this.geraItem();
             return "Movimento válido";
         }
 
@@ -142,16 +144,16 @@ public class Tabuleiro {
     }
     public void imprimirTabuleiro()
     {
-        String linha = "+----+----+----+----+----+----+----+----+----+";
+        String divisoria = "+----+----+----+----+----+----+----+----+----+";
 
         for (int i = 0; i < 9; i++)
         {
-            System.out.println(linha);
+            System.out.println(divisoria);
             for (int j = 0; j < 9; j++)
                 System.out.print("|"+this.matriz[i][j]);
             System.out.println("|");
         }
-        System.out.println(linha);
+        System.out.println(divisoria);
     }
     private int aleatorio(int min, int max)
     {
