@@ -12,7 +12,7 @@ public class Principal {
         System.out.println("L em direção ao leste e");
         System.out.println("O em direção ao oeste");
 
-        if(!jogo.getTabuleiro().movimentaEntidade(input.nextLine(), j1.getLinha(), j1.getColuna()))
+        if(!jogo.getTabuleiro().movimentaPersonagem(input.nextLine(), j1.getLinha(), j1.getColuna()))
             System.out.println("Movimento Inválido!");
         jogo.getTabuleiro().imprimirTabuleiro();
     }

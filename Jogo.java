@@ -4,7 +4,7 @@ public class Jogo {
     private Tabuleiro tabuleiro;
     private int turno;
     private LinkedList<Jogador> jogadores;
-    private LinkedList<FakeNews> fakenews;
+    private LinkedList<FakeNews> fakeNews;
 
     public Jogo(int numJ)
     {
@@ -14,7 +14,7 @@ public class Jogo {
         LinkedList<FakeNews> f = new LinkedList<FakeNews>();
         this.setFakenews(f);
         criaFakeNews();
-        Tabuleiro tabuleiro = new Tabuleiro(this.jogadores, this.fakenews);
+        Tabuleiro tabuleiro = new Tabuleiro(this.jogadores, this.fakeNews);
         this.setTabuleiro(tabuleiro);
         this.setTurno(0);
     }
@@ -24,7 +24,7 @@ public class Jogo {
     }
     private void setFakenews(LinkedList<FakeNews> f)
     {
-        this.fakenews = f;
+        this.fakeNews = f;
     }
     private void setTabuleiro(Tabuleiro t)
     {
@@ -87,17 +87,17 @@ public class Jogo {
         for (int i = 0; i < 2; i++)
         {
             FakeNews1 f1 = new FakeNews1("F1");
-            this.fakenews.addLast(f1);
+            this.fakeNews.addLast(f1);
         }
         for (int i = 0; i < 2; i++)
         {
             FakeNews2 f2 = new FakeNews2("F2");
-            this.fakenews.addLast(f2);
+            this.fakeNews.addLast(f2);
         }
         for (int i = 0; i < 2; i++)
         {
             FakeNews3 f3 = new FakeNews3("F3");
-            this.fakenews.addLast(f3);
+            this.fakeNews.addLast(f3);
         }
     }
 }

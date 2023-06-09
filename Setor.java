@@ -1,4 +1,4 @@
-public class Setor extends Entidade {
+public class Setor extends Inerte {
 
     public Setor(String label)
     {
@@ -7,9 +7,5 @@ public class Setor extends Entidade {
     public boolean isXX()
     {
         return this.label.equals("XX");
-    }
-    public void movimentar(String direcao)
-    {
-        System.out.println("Movimentando...");
-    }   
+    }  
 }

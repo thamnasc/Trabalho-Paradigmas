@@ -1,9 +1,18 @@
-public class Jogador extends Entidade implements Movimentacao {
-    //private Item item;
+public class Jogador extends Personagem {
+    //quando finalizado seu turno, setar item para null
+    private Item item;
     
     public Jogador(String label)
     {
         super(label);
+    }
+    public void setItem(Item item)
+    {
+        this.item = item;
+    }
+    public Item getItem()
+    {
+        return this.item;
     }
     public void movimentar(String direcao)
     {

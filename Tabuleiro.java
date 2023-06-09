@@ -13,6 +13,8 @@ public class Tabuleiro {
         posicionaJogadores(j);        
         posicionaSetoresXX();
         posicionaFakeNews(f);
+        geraItem();
+        geraItem();
     }
     private void setMatriz(Entidade[][] matriz)
     {
@@ -28,26 +30,111 @@ public class Tabuleiro {
         if (coluna >= 0 && coluna <= 8)
             this.coluna = coluna;
     }
-    public boolean movimentaEntidade(String direcao, int l, int c)
+    public String movimentaPersonagem(String direcao, int l, int c)
     {
-        Jogador j = (Jogador) this.matriz[l][c];
-        //if (this.matriz[l][c] instanceof Jogador) 
-        j.movimentar(direcao);
+        Personagem p = this.matriz[l][c];
+        p.movimentar(direcao);
+        int newL = p.getLinha();
+        int newC = p.getColuna();
+
+        boolean movimentoValido = newL >= 0 && newL <= 8 && newC >= 0 && newC <= 8;
+
+        if (!movimentoValido)
+        {
+            if (p instanceof Jogador)
+            {
+                p.setLinha(l);
+                p.setColuna(c);
+                return "Movimento Inválido";
+            }
+            else // se saiu da borda, fakeNews é eliminada
+            {
+                this.matriz[l][c] = new Setor("  ");
+                return "Eliminado";
+            }
+        }
+
+        if (this.matriz[newL][newC].getLabel().equals(" XX "))
+        {
+            this.matriz[l][c] = new Setor("  ");
+            return "Eliminado";
+        }
+
+        if (p instanceof Jogador)
+            return movimentaJogador((Jogador) p, l, c);
+
+        if (p instanceof FakeNews)
+            return movimentaFakeNews((FakeNews) p, l, c);
+    }
+    private String movimentaJogador(Jogador j, int l, int c)
+    {
         int newL = j.getLinha();
         int newC = j.getColuna();
 
-        boolean movimentoValido = newL >= 0 && newL <= 8 && newC >= 0 && newC <= 8;
-        if (!movimentoValido)
+        Entidade e = this.matriz[newL][newC];
+
+        if (e instanceof Item)
         {
-            j.setLinha(l);
-            j.setColuna(c);
-        }
-        else
-        {
+            // armazena item
+            j.setItem(e);
+
+            // TODO: verifica se o jogador ouviu um boato
+
+            // movimenta jogador
             this.matriz[newL][newC] = j;
             this.matriz[l][c] = new Setor("  ");
+            // gera outro item aleatório no tabuleiro
+            this.geraItem();
+
+            return "Movimento válido";
         }
-        return movimentoValido;
+
+        if (e instanceof FakeNews)
+        {
+            this.matriz[l][c] = new Setor("  ");
+            return "Eliminado";
+        }
+        
+        if (e instanceof Jogador)
+        {
+            this.setLinha(l);
+            this.setColuna(c);
+            return "Movimento inválido";
+        }
+
+        // se for um setor normal
+        return "Movimento válido";
+    }
+    private String movimentaFakeNews(FakeNews f, int l, int c)
+    {
+        int newL = j.getLinha();
+        int newC = j.getColuna();
+
+        Entidade e = this.matriz[newL][newC];
+
+        if (e instanceof Item)
+        {
+            /*
+            Caso uma fake news colida com um item presente em uma posição do tabuleiro, a
+            mesma elimina o item do tabuleiro e cria uma cópia dela mesma em uma das 8 (oito)
+            posições adjacentes livres, ou seja, a fake news é duplicada.
+            */
+            return "Movimento válido";
+        }
+
+        if (e instanceof Jogador)
+        {
+            // elimina jogador
+        }
+
+        if (e instanceof FakeNews)
+        {
+            return "Movimento inválido";
+        }
+
+        // se for um setor normal
+        return "Movimento válido";
+
     }
     public void imprimirTabuleiro()
     {
@@ -81,10 +168,11 @@ public class Tabuleiro {
     }
     private void posicionaSetoresXX()
     {
-        encontraSetorDisponivel(0, 8);
-        this.matriz[this.linha][this.coluna] = new Setor("XX");
-        encontraSetorDisponivel(0, 8);
-        this.matriz[this.linha][this.coluna] = new Setor("XX");
+        for (int i = 0; i < 4; i++) 
+        {
+            encontraSetorDisponivel(0, 8);
+            this.matriz[this.linha][this.coluna] = new Setor("XX");
+        }
     }
     private void posicionaJogadores(LinkedList<Jogador> j)
     {
@@ -112,5 +200,11 @@ public class Tabuleiro {
         } while (!this.matriz[l][c].toString().equals("    "));
         this.setLinha(l);
         this.setColuna(c);
+    }
+    private void geraItem()
+    {
+        encontraSetorDisponivel(0, 8);
+        Item i = new Item("??");
+        this.matriz[this.linha][this.coluna] = i;
     }
 }
