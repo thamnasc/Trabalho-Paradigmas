@@ -1,6 +1,7 @@
 public class Jogador extends Personagem {
     //quando finalizado seu turno, setar item para null
     private Item item;
+    private String comando;
     
     public Jogador(String label)
     {
@@ -14,9 +15,13 @@ public class Jogador extends Personagem {
     {
         return this.item;
     }
-    public void movimentar(String direcao)
+    public void setComando(String comando)
     {
-        switch (direcao.toLowerCase())
+        this.comando = comando;
+    }
+    public void movimentar()
+    {
+        switch (this.comando.toLowerCase())
         {
             case "n":
                 this.setLinha(this.linha-1);

@@ -38,16 +38,19 @@ public class Tabuleiro {
     {
         return this.coluna;
     }
-    public String movimentaPersonagem(String direcao, int l, int c)
+    public String movimentaPersonagem(int l, int c)
     {
         Personagem p = (Personagem) this.matriz[l][c];
-        p.movimentar(direcao);
+        p.movimentar();
         int newL = p.getLinha();
         int newC = p.getColuna();
 
-        boolean movimentoValido = newL >= 0 && newL <= 8 && newC >= 0 && newC <= 8;
-
-        if (!movimentoValido)
+        boolean movimentoInvalido = newL < 0 || newL > 8 || newC < 0 || newC > 8;
+        boolean mesmaPosicao = l == newL && c == newC;
+        
+        if (mesmaPosicao)
+            return "Movimento inválido";
+        if (movimentoInvalido)
         {
             if (p instanceof Jogador)
             {
@@ -243,11 +246,17 @@ public class Tabuleiro {
     private void sorteiaSetorAdjacente(int linha, int coluna)
     {
         int newL, newC;
+        boolean linhaInvalida, colunaInvalida;
         do 
         {
-            newL = aleatorio(-1, 1);
-            newC = aleatorio(-1, 1);
-        } while (!this.matriz[newL][newC].equals("    "));
+            do
+            {
+                newL = aleatorio(-1, 1);
+                newC = aleatorio(-1, 1);
+                linhaInvalida = newL + this.linha < 0 || newL + this.linha > 8;
+                colunaInvalida = newC + this.coluna < 0 || newC + this.coluna > 8;
+            } while (linhaInvalida && colunaInvalida);
+        } while (!this.matriz[newL + this.linha][newC + this.coluna].equals("    "));
         this.setLinha(this.linha + newL);
         this.setColuna(this.coluna + newC);
     }

@@ -47,7 +47,7 @@ public class Jogo {
     {
         return this.jogadores;
     }
-    public LinkedList<FakeNews> getFakenews()
+    public LinkedList<FakeNews> getFakeNews()
     {
         return this.fakeNews;
     }
