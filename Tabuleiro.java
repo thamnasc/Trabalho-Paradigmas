@@ -243,22 +243,28 @@ public class Tabuleiro {
         Item i = new Item("??");
         this.matriz[this.linha][this.coluna] = i;
     }
-    private void sorteiaSetorAdjacente(int linha, int coluna)
+    private void sorteiaSetorAdjacente(int l, int c)
     {
         int newL, newC;
-        boolean linhaInvalida, colunaInvalida;
-        do 
+        boolean linhaInvalida = true;
+        boolean colunaInvalida = true;
+        boolean setorInvalido = true;
+        
+        while (setorInvalido)
         {
-            do
+            while (linhaInvalida || colunaInvalida)
             {
                 // para variar de -1 a 1
                 newL = aleatorio(1, 3) - 2; 
                 newC = aleatorio(1, 3) - 2; 
-                linhaInvalida = newL + this.linha < 0 || newL + this.linha > 8;
-                colunaInvalida = newC + this.coluna < 0 || newC + this.coluna > 8;
-            } while (linhaInvalida || colunaInvalida);
-        } while (!this.matriz[newL + this.linha][newC + this.coluna].equals("    "));
-        this.setLinha(this.linha + newL);
-        this.setColuna(this.coluna + newC);
+                linhaInvalida = newL + l < 0 || newL + l > 8;
+                colunaInvalida = newC + c < 0 || newC + c > 8;
+            }
+            linhaInvalida = true;
+            colunaInvalida = true;
+            setorInvalido = !this.matriz[newL + l][newC + c].toString().equals("    ");
+        }
+        this.setLinha(newL + l);
+        this.setColuna(newC + c);
     }
 }
