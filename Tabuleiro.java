@@ -251,11 +251,12 @@ public class Tabuleiro {
         {
             do
             {
-                newL = aleatorio(-1, 1);
-                newC = aleatorio(-1, 1);
+                // para variar de -1 a 1
+                newL = aleatorio(1, 3) - 2; 
+                newC = aleatorio(1, 3) - 2; 
                 linhaInvalida = newL + this.linha < 0 || newL + this.linha > 8;
                 colunaInvalida = newC + this.coluna < 0 || newC + this.coluna > 8;
-            } while (linhaInvalida && colunaInvalida);
+            } while (linhaInvalida || colunaInvalida);
         } while (!this.matriz[newL + this.linha][newC + this.coluna].equals("    "));
         this.setLinha(this.linha + newL);
         this.setColuna(this.coluna + newC);
