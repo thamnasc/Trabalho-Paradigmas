@@ -15,7 +15,7 @@ public class Item extends Inerte {
     public Item(String label)
     {
         super(label);
-        this.sorteiaTipo();
+        this.sorteiarTipo();
     }
     private void setTipo(int tipo)
     {
@@ -38,7 +38,7 @@ public class Item extends Inerte {
     {
         return this.tipo;
     }
-    private void sorteiaTipo()
+    private void sorteiarTipo()
     {
         this.setTipo(aleatorio(1, 4));
     }

@@ -9,12 +9,12 @@ public class Tabuleiro {
     { 
         Entidade[][] matrizAux = new Entidade[9][9];
         this.setMatriz(matrizAux);
-        inicializaTabuleiro();
-        posicionaJogadores(j);        
-        posicionaSetoresXX();
-        posicionaFakeNews(f);
-        geraItem();
-        geraItem();
+        inicializarTabuleiro();
+        posicionarJogadores(j);        
+        posicionarSetoresXX();
+        posicionarFakeNews(f);
+        gerarItem();
+        gerarItem();
     }
     private void setMatriz(Entidade[][] matriz)
     {
@@ -38,7 +38,7 @@ public class Tabuleiro {
     {
         return this.coluna;
     }
-    public String movimentaPersonagem(int l, int c)
+    public String movimentarPersonagem(int l, int c)
     {
         Personagem p = (Personagem) this.matriz[l][c];
         p.movimentar();
@@ -74,14 +74,14 @@ public class Tabuleiro {
         String mensagem = "";
 
         if (p instanceof Jogador)
-            mensagem = movimentaJogador((Jogador) p, l, c);
+            mensagem = movimentarJogador((Jogador) p, l, c);
 
         if (p instanceof FakeNews)
-            mensagem =  movimentaFakeNews((FakeNews) p, l, c);
+            mensagem =  movimentarFakeNews((FakeNews) p, l, c);
 
         return mensagem;
     }
-    private String movimentaJogador(Jogador j, int l, int c)
+    private String movimentarJogador(Jogador j, int l, int c)
     {
         int newL = j.getLinha();
         int newC = j.getColuna();
@@ -99,7 +99,7 @@ public class Tabuleiro {
             this.matriz[newL][newC] = j;
             this.matriz[l][c] = new Setor("  ");
             // gera outro item aleatório no tabuleiro
-            this.geraItem();
+            this.gerarItem();
 
             return "Movimento válido";
         }
@@ -122,7 +122,7 @@ public class Tabuleiro {
         this.matriz[l][c] = new Setor("  ");
         return "Movimento válido";
     }
-    private String movimentaFakeNews(FakeNews f, int l, int c)
+    private String movimentarFakeNews(FakeNews f, int l, int c)
     {
         int newL = f.getLinha();
         int newC = f.getColuna();
@@ -131,24 +131,20 @@ public class Tabuleiro {
 
         if (e instanceof Item)
         {
-            /*
-            Caso uma fake news colida com um item presente em uma posição do tabuleiro, a
-            mesma elimina o item do tabuleiro e cria uma cópia dela mesma em uma das 8 (oito)
-            posições adjacentes livres, ou seja, a fake news é duplicada.
-            */ 
             this.matriz[newL][newC] = f; 
             this.matriz[l][c] = new Setor("  ");
-            // gera outro item aleatório no tabuleiro
-            this.geraItem();
 
-            // duplica-se
-            this.sorteiaSetorAdjacente(newL, newC);
+            // duplica a fakenews
+            this.sorteiarSetorAdjacente(newL, newC);
             if (f instanceof FakeNews1)
                 this.matriz[this.linha][this.coluna] = new FakeNews1("F1");
             else if (f instanceof FakeNews2)
                 this.matriz[this.linha][this.coluna] = new FakeNews2("F2");
             else 
                 this.matriz[this.linha][this.coluna] = new FakeNews3("F3");
+
+            // gera outro item aleatório no tabuleiro
+            this.gerarItem();
 
             return "Movimento válido";
         }
@@ -196,37 +192,37 @@ public class Tabuleiro {
         // de [0,8] não incluindo 8. No final, precisamos ajustar qual 
         // é o intervalo inicial (min), então somamos min.
     }
-    private void inicializaTabuleiro()
+    private void inicializarTabuleiro()
     {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 this.matriz[i][j] = new Setor("  ");
     }
-    private void posicionaSetoresXX()
+    private void posicionarSetoresXX()
     {
         for (int i = 0; i < 4; i++) 
         {
-            encontraSetorDisponivel(0, 8);
+            encontrarSetorDisponivel(0, 8);
             this.matriz[this.linha][this.coluna] = new Setor("XX");
         }
     }
-    private void posicionaJogadores(LinkedList<Jogador> j)
+    private void posicionarJogadores(LinkedList<Jogador> j)
     {
         for (int i = 0; i < j.size(); i++)
             this.matriz[j.get(i).getLinha()][j.get(i).getColuna()] = j.get(i);
     }
-    private void posicionaFakeNews(LinkedList<FakeNews> f)
+    private void posicionarFakeNews(LinkedList<FakeNews> f)
     {
         // inicialmente, as fakenews não podem estar nas linhas e colunas 1 e 9
         for (int i = 0; i < f.size(); i++)
         {
-            encontraSetorDisponivel(1, 7);
+            encontrarSetorDisponivel(1, 7);
             this.matriz[this.linha][this.coluna] = f.get(i);
             f.get(i).setLinha(this.linha);
             f.get(i).setColuna(this.coluna);
         }
     }
-    private void encontraSetorDisponivel(int min, int max)
+    private void encontrarSetorDisponivel(int min, int max)
     {
         int l, c;
         do
@@ -237,15 +233,15 @@ public class Tabuleiro {
         this.setLinha(l);
         this.setColuna(c);
     }
-    private void geraItem()
+    private void gerarItem()
     {
-        encontraSetorDisponivel(0, 8);
+        encontrarSetorDisponivel(0, 8);
         Item i = new Item("??");
         this.matriz[this.linha][this.coluna] = i;
     }
-    private void sorteiaSetorAdjacente(int l, int c)
+    private void sorteiarSetorAdjacente(int l, int c)
     {
-        int newL, newC;
+        int newL = 0, newC = 0;
         boolean linhaInvalida = true;
         boolean colunaInvalida = true;
         boolean setorInvalido = true;

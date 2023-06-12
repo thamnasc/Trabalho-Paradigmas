@@ -10,10 +10,10 @@ public class Jogo {
     {
         LinkedList<Jogador> j = new LinkedList<Jogador>();
         this.setJogadores(j);
-        criaJogadores(numJ);
+        criarJogadores(numJ);
         LinkedList<FakeNews> f = new LinkedList<FakeNews>();
         this.setFakenews(f);
-        criaFakeNews();
+        criarFakeNews();
         Tabuleiro tabuleiro = new Tabuleiro(this.jogadores, this.fakeNews);
         this.setTabuleiro(tabuleiro);
         this.setTurno(0);
@@ -51,7 +51,7 @@ public class Jogo {
     {
         return this.fakeNews;
     }
-    private void criaJogadores(int numJ)
+    private void criarJogadores(int numJ)
     {
         if (numJ >= 1)
         {
@@ -82,7 +82,7 @@ public class Jogo {
             jogadores.addLast(j4);
         }
     }
-    private void criaFakeNews()
+    private void criarFakeNews()
     {
         for (int i = 0; i < 2; i++)
         {

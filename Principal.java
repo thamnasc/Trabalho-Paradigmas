@@ -19,7 +19,7 @@ public class Principal {
         while (!movimento.equals("Eliminado"))
         {
             j1.setComando(input.nextLine());
-            movimento = jogo.getTabuleiro().movimentaPersonagem(j1.getLinha(),j1.getColuna());
+            movimento = jogo.getTabuleiro().movimentarPersonagem(j1.getLinha(),j1.getColuna());
             System.out.println(movimento);
             if (movimento.equals("Eliminado"))
                 System.out.println(j1.getLabel()+" foi eliminado!");
@@ -30,7 +30,7 @@ public class Principal {
         while (!movimento.equals("Eliminado"))
         {
             int oldL = f.getLinha(), oldC = f.getColuna();
-            movimento = jogo.getTabuleiro().movimentaPersonagem(oldL,oldC);
+            movimento = jogo.getTabuleiro().movimentarPersonagem(oldL,oldC);
             System.out.print(f.getLabel()+" andou da posição ["+(oldL+1)+"]["+(oldC+1)+"]");
             System.out.println(" para ["+(f.getLinha()+1)+"]["+(f.getColuna()+1)+"]");
             System.out.println(movimento);
