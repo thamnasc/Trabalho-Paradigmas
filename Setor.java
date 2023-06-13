@@ -4,3 +4,4 @@ public class Setor extends Inerte {
         super(label);
     }  
 }
+ 

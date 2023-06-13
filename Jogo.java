@@ -5,18 +5,18 @@ public class Jogo {
     private int turno;
     private LinkedList<Jogador> jogadores;
     private LinkedList<FakeNews> fakeNews;
-
+ 
     public Jogo(int numJ)
     {
         LinkedList<Jogador> j = new LinkedList<Jogador>();
         this.setJogadores(j);
-        criarJogadores(numJ);
+        this.criarJogadores(numJ);
         LinkedList<FakeNews> f = new LinkedList<FakeNews>();
         this.setFakenews(f);
-        criarFakeNews();
+        this.criarFakeNews();
         Tabuleiro tabuleiro = new Tabuleiro(this.jogadores, this.fakeNews);
         this.setTabuleiro(tabuleiro);
-        this.setTurno(0);
+        this.setTurno(1);
     }
     private void setJogadores(LinkedList<Jogador> j)
     {
@@ -30,7 +30,7 @@ public class Jogo {
     {
         this.tabuleiro = t;
     }
-    public void setTurno(int turno)
+    private void setTurno(int turno)
     {
         if (turno >= 0)
             this.turno = turno;
@@ -38,6 +38,9 @@ public class Jogo {
     public int getTurno()
     {
         return this.turno;
+    }
+    public void incrementarTurno(){
+        this.setTurno(this.turno + 1);
     }
     public Tabuleiro getTabuleiro()
     {

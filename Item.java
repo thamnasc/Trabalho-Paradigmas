@@ -2,7 +2,7 @@
 Quando um jogador se movimentar para uma posição do tabuleiro que houver um
 item, o jogador deve armazenar esse item e eliminá-lo do tabuleiro. Na sequência,
 um novo item qualquer deverá surgir em outra posição do tabuleiro.
-*/
+*/ 
 public class Item extends Inerte {
     /* Tipos:
         a - Denunciar fake news
@@ -34,9 +34,20 @@ public class Item extends Inerte {
                 this.tipo = 'd';
         }
     }
-    public char getTipo()
+    public String getTipo()
     {
-        return this.tipo;
+        switch (this.tipo)
+        {
+            case 'a':
+                return "Denunciar Fake News";
+            case 'b':
+                return "Fugir";
+            case 'c':
+                return "Ler uma notícia real";
+            case 'd':
+                return "Ouvir um boato";
+            default: return " ";
+        }
     }
     private void sorteiarTipo()
     {

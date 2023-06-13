@@ -1,7 +1,7 @@
 public class FakeNews1 extends FakeNews {
     public FakeNews1 (String label){
         super(label);
-    }
+    } 
     public void movimentar()
     {
         int dir = aleatorio(1, 4);

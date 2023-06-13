@@ -2,7 +2,7 @@ public class Jogador extends Personagem {
     //quando finalizado seu turno, setar item para null
     private Item item;
     private String comando;
-    
+     
     public Jogador(String label)
     {
         super(label);

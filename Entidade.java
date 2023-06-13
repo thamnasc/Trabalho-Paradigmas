@@ -1,9 +1,8 @@
 import java.util.Random;
-
+ 
 public abstract class Entidade {
     protected String label;
-    protected int linha;
-    protected int coluna;
+    
 
     public Entidade(String label)
     { 
@@ -17,18 +16,7 @@ public abstract class Entidade {
     {
         return this.label;
     }
-    public void setLinha (int linha){
-        this.linha = linha;
-    }
-    public void setColuna(int coluna) {
-        this.coluna = coluna;
-    }
-    public int getLinha() {
-        return this.linha;
-    }
-    public int getColuna() {
-        return this.coluna;
-    }
+    
     @Override
     public String toString()
     {

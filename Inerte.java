@@ -4,4 +4,4 @@ public abstract class Inerte extends Entidade
     {
         super(label);
     }
-}
+} 

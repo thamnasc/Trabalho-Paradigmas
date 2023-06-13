@@ -9,12 +9,12 @@ public class Tabuleiro {
     { 
         Entidade[][] matrizAux = new Entidade[9][9];
         this.setMatriz(matrizAux);
-        inicializarTabuleiro();
-        posicionarJogadores(j);        
-        posicionarSetoresXX();
-        posicionarFakeNews(f);
-        gerarItem();
-        gerarItem();
+        this.inicializarTabuleiro();
+        this.posicionarJogadores(j);        
+        this.posicionarSetoresXX();
+        this.posicionarFakeNews(f);
+        this.gerarItem();
+        this.gerarItem();
     }
     private void setMatriz(Entidade[][] matriz)
     {
@@ -93,14 +93,12 @@ public class Tabuleiro {
             // armazena item
             j.setItem((Item) e);
 
-            // TODO: verifica se o jogador ouviu um boato
-
             // movimenta jogador
             this.matriz[newL][newC] = j;
             this.matriz[l][c] = new Setor("  ");
             // gera outro item aleatório no tabuleiro
             this.gerarItem();
-
+        
             return "Movimento válido";
         }
 

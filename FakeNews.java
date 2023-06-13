@@ -3,4 +3,4 @@ public abstract class FakeNews extends Personagem {
     {
         super(label);
     } 
-}
+} 
