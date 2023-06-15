@@ -190,24 +190,24 @@ public class Tabuleiro {
     {
         for (int i = 0; i < 4; i++) 
         {
-            encontrarSetorDisponivel(0, 8);
+            this.encontrarSetorDisponivel(0, 8);
             this.matriz[this.linha][this.coluna] = new Setor("XX");
         }
     }
     private void posicionarJogadores(LinkedList<Jogador> j)
     {
-        for (int i = 0; i < j.size(); i++)
-            this.matriz[j.get(i).getLinha()][j.get(i).getColuna()] = j.get(i);
+        for (Jogador jogador : j)
+            this.matriz[jogador.getLinha()][jogador.getColuna()] = jogador;
     }
     private void posicionarFakeNews(LinkedList<FakeNews> f)
     {
         // inicialmente, as fakenews não podem estar nas linhas e colunas 1 e 9
-        for (int i = 0; i < f.size(); i++)
+        for (FakeNews fakeNews : f)
         {
-            encontrarSetorDisponivel(1, 7);
-            this.matriz[this.linha][this.coluna] = f.get(i);
-            f.get(i).setLinha(this.linha);
-            f.get(i).setColuna(this.coluna);
+            this.encontrarSetorDisponivel(1, 7);
+            this.matriz[this.linha][this.coluna] = fakeNews;
+            fakeNews.setLinha(this.linha);
+            fakeNews.setColuna(this.coluna);
         }
     }
     private void encontrarSetorDisponivel(int min, int max)
