@@ -21,10 +21,12 @@ public class Principal {
 
             System.out.println("======Turno dos Jogadores======");
             int turnosJ = 0;
-            numj = jogo.getJogadores().size();
+            numJ = jogo.getJogadores().size();
             while (turnosJ < numJ)
             {
                 Jogador j = jogo.getJogadores().pollFirst();
+                oldL = j.getLinha();
+                oldC = j.getColuna();
                 System.out.println("Vez de " + j.getLabel());
                 comando = "n";
                 if (j.getItem() != null)
@@ -33,7 +35,12 @@ public class Principal {
                     {
                         System.out.println("Ah, não! Você acabou de ouvir um boato.");
                         comando = "nenhum";
-                        //executa
+                        movimento = "Movimento inválido";
+                        while (movimento.equals("Movimento inválido"))
+                        {
+                            j.ouvirBoato();
+                            movimento = this.movimentarJogador(jogo, j, oldC, oldL);
+                        }
                     }
                     else 
                     {
@@ -42,22 +49,19 @@ public class Principal {
                         comando = input.nextLine().toLowerCase();
                         if (comando.equals("s"))
                             //executa
+                            System.out.println("Ainda preciso ser implementado!");
                     }
                 }
                 if ((comando.equals("s") && !j.getItem().getTipo().equals("fugir")) || comando.equals("n"))  
                 {
-                    j.setItem(null);
-
                     while (movimento.equals("Movimento inválido"))
                     {                 
                         System.out.print("Por favor, informe para qual direção quer se movimentar: ");
-                        j.getComando(input.nextLine());
-                        movimento = jogo.getTabuleiro().movimentarPersonagem(oldL, oldC);
-                        //if (movimento.equals("Eliminado"))
-                        if (movimento.equals("Movimento válido"))
-                            jogo.getJogadores().addLast(j);
+                        j.setComando(input.nextLine());
+                        movimento = movimentarJogador(jogo, j, oldL, oldC);
                     } 
                 }
+                j.setItem(null);
                 turnosJ++;         
             }
             
@@ -68,15 +72,15 @@ public class Principal {
             {
                 FakeNews f = jogo.getFakeNews().pollFirst();
                 movimento = "Movimento inválido";
+                oldL = f.getLinha(); 
+                oldC = f.getColuna(); //guardar posicao antiga
                 while (movimento.equals("Movimento inválido"))
                 {
-                    oldL = f.getLinha(); 
-                    oldC = f.getColuna(); //guardar posicao antiga
-                    movimento = jogo.getTabuleiro().movimentarPersonagem(oldL, oldC); //movimentar
+                    movimento = jogo.getTabuleiro().movimentarEntidade(oldL, oldC); //movimentar
 
                     if (movimento.equals("Movimento válido"))
                         jogo.getFakeNews().addLast(f);
-                    else if 
+                    else if (movimento.equals("Duplicada"))
                     {
                         jogo.getFakeNews().addLast(f);
                         jogo.getFakeNews().addLast(jogo.getTabuleiro().retornarFakeNewsDuplicada());
@@ -123,10 +127,20 @@ public class Principal {
         } */
 
     }
-    public static void imprimirMenu(){
+    public static void imprimirMenu()
+    {
         /*         System.out.println("Digite S para movimentar em direção ao sul");
         System.out.println("N em direção ao norte");
         System.out.println("L em direção ao leste e");
         System.out.println("O em direção ao oeste"); */
+    }
+    public String movimentarJogador(Jogo jogo, Jogador j, int oldL, int oldC)
+    {
+        
+        String movimento = jogo.getTabuleiro().movimentarEntidade(oldL, oldC);
+        if (movimento.equals("Eliminado"))
+            System.out.println(j.getLabel()+" foi eliminado!");
+        if (movimento.equals("Movimento válido"))
+            jogo.getJogadores().addLast(j);
     }
 }

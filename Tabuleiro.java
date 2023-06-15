@@ -10,6 +10,7 @@ public class Tabuleiro {
     { 
         Entidade[][] matrizAux = new Entidade[9][9];
         this.setMatriz(matrizAux);
+        this.setAleatorio(new Aleatorio());
         this.inicializarTabuleiro();
         this.posicionarJogadores(j);        
         this.posicionarSetoresXX();
@@ -31,6 +32,10 @@ public class Tabuleiro {
         if (coluna >= 0 && coluna <= 8)
             this.coluna = coluna;
     }
+    private void setAleatorio(Aleatorio a)
+    {
+        this.aleatorio = a;
+    }
     public int getLinha()
     {
         return this.linha;
@@ -39,12 +44,12 @@ public class Tabuleiro {
     {
         return this.coluna;
     }
-    public String movimentarPersonagem(int l, int c)
+    public String movimentarEntidade(int l, int c)
     {
-        Personagem p = (Personagem) this.matriz[l][c];
-        p.movimentar();
-        int newL = p.getLinha();
-        int newC = p.getColuna();
+        EntidadeMovel e = (EntidadeMovel) this.matriz[l][c];
+        e.movimentar();
+        int newL = e.getLinha();
+        int newC = e.getColuna();
 
         boolean movimentoInvalido = newL < 0 || newL > 8 || newC < 0 || newC > 8;
         boolean mesmaPosicao = l == newL && c == newC;
@@ -53,10 +58,10 @@ public class Tabuleiro {
             return "Movimento inválido";
         if (movimentoInvalido)
         {
-            if (p instanceof Jogador)
+            if (e instanceof Jogador)
             {
-                p.setLinha(l);
-                p.setColuna(c);
+                e.setLinha(l);
+                e.setColuna(c);
                 return "Movimento inválido";
             }
             else // se saiu da borda, fakeNews é eliminada
@@ -74,11 +79,11 @@ public class Tabuleiro {
 
         String mensagem = "";
 
-        if (p instanceof Jogador)
-            mensagem = movimentarJogador((Jogador) p, l, c);
+        if (e instanceof Jogador)
+            mensagem = movimentarJogador((Jogador) e, l, c);
 
-        if (p instanceof FakeNews)
-            mensagem =  movimentarFakeNews((FakeNews) p, l, c);
+        if (e instanceof FakeNews)
+            mensagem =  movimentarFakeNews((FakeNews) e, l, c);
 
         return mensagem;
     }
@@ -145,7 +150,7 @@ public class Tabuleiro {
             else 
                 this.matriz[this.linha][this.coluna] = new FakeNews3("F3");
 
-            return "Movimento válido";
+            return "Duplicada";
         }
 
         if (e instanceof Jogador)

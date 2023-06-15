@@ -5,6 +5,7 @@ public class Item extends EntidadeInerte {
     public Item(String label)
     {
         super(label);
+        this.setAleatorio(new Aleatorio());
         this.sorteiarTipo();
     }
     private void setTipo(int tipo)
@@ -12,15 +13,18 @@ public class Item extends EntidadeInerte {
         switch (tipo)
         {
             case 1:
-                return "denunciar fake news";
+                this.tipo = "denunciar fake news";
             case 2:
-                return "fugir";
+                this.tipo = "fugir";
             case 3:
-                return "ler uma notícia real";
+                this.tipo = "ler uma notícia real";
             case 4:
-                return "ouvir um boato";
-            default: return " ";
+                this.tipo = "ouvir um boato";
         }
+    }
+    private void setAleatorio(Aleatorio a)
+    {
+        this.aleatorio = a;
     }
     public String getTipo()
     {
