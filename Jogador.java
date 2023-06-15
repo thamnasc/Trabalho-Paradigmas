@@ -1,4 +1,4 @@
-public class Jogador extends Personagem {
+public class Jogador extends EntidadeMovel {
     private Item item;
     private String comando;
      
