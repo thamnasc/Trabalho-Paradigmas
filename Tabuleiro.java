@@ -4,6 +4,7 @@ public class Tabuleiro {
     private Entidade[][] matriz;
     private int linha;
     private int coluna;
+    private Aleatorio aleatorio;
 
     public Tabuleiro(LinkedList<Jogador> j, LinkedList<FakeNews> f)
     { 
@@ -65,7 +66,7 @@ public class Tabuleiro {
             }
         }
         
-        if (this.matriz[newL][newC].toString().equals(" XX "))
+        if (this.matriz[newL][newC].getLabel().equals("XX"))
         {
             this.matriz[l][c] = new Setor("  ");
             return "Eliminado";
@@ -179,17 +180,6 @@ public class Tabuleiro {
         }
         System.out.println(divisoria);
     }
-    private int aleatorio(int min, int max)
-    {
-        Random aleatorio = new Random();
-        return aleatorio.nextInt(max-min+1) + min;
-        // ex: fakenews no início
-        // para um dos índices -> de 1 a 7, então min = 1 e max = 7
-        // mas o random não inclui o 7 no intervalo, ele sorteará
-        // de 0 a 6, assim, precisaremos incrementar com +1 para garantir o sorteio
-        // de [0,8] não incluindo 8. No final, precisamos ajustar qual 
-        // é o intervalo inicial (min), então somamos min.
-    }
     private void inicializarTabuleiro()
     {
         for (int i = 0; i < 9; i++)
@@ -225,15 +215,15 @@ public class Tabuleiro {
         int l, c;
         do
         {
-            l = aleatorio(min, max);
-            c = aleatorio(min, max);
-        } while (!this.matriz[l][c].toString().equals("    "));
+            l = this.aleatorio.sortearAleatorio(min, max);
+            c = this.aleatorio.sortearAleatorio(min, max);
+        } while (!this.matriz[l][c].getLabel().equals("  "));
         this.setLinha(l);
         this.setColuna(c);
     }
     private void gerarItem()
     {
-        encontrarSetorDisponivel(0, 8);
+        this.encontrarSetorDisponivel(0, 8);
         Item i = new Item("??");
         this.matriz[this.linha][this.coluna] = i;
     }
@@ -249,14 +239,14 @@ public class Tabuleiro {
             while (linhaInvalida || colunaInvalida)
             {
                 // para variar de -1 a 1
-                newL = aleatorio(1, 3) - 2; 
-                newC = aleatorio(1, 3) - 2; 
+                newL = this.aleatorio.sortearAleatorio(1, 3) - 2; 
+                newC = this.aleatorio.sortearAleatorio(1, 3) - 2; 
                 linhaInvalida = newL + l < 0 || newL + l > 8;
                 colunaInvalida = newC + c < 0 || newC + c > 8;
             }
             linhaInvalida = true;
             colunaInvalida = true;
-            setorInvalido = !this.matriz[newL + l][newC + c].toString().equals("    ");
+            setorInvalido = !this.matriz[newL + l][newC + c].getLabel().equals("  ");
         }
         this.setLinha(newL + l);
         this.setColuna(newC + c);

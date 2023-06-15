@@ -10,7 +10,8 @@ public class Item extends Inerte {
         c - Ler uma notícia real
         d - Ouvir um boato
     */
-    private char tipo;
+    private String tipo;
+    private Aleatorio aleatorio;
 
     public Item(String label)
     {
@@ -22,35 +23,22 @@ public class Item extends Inerte {
         switch (tipo)
         {
             case 1:
-                this.tipo = 'a';
-                break;
-            case 2:
-                this.tipo = 'b';
-                break;
-            case 3:
-                this.tipo = 'c';
-                break;
-            case 4:
-                this.tipo = 'd';
-        }
-    }
-    public String getTipo()
-    {
-        switch (this.tipo)
-        {
-            case 'a':
                 return "Denunciar Fake News";
-            case 'b':
+            case 2:
                 return "Fugir";
-            case 'c':
+            case 3:
                 return "Ler uma notícia real";
-            case 'd':
+            case 4:
                 return "Ouvir um boato";
             default: return " ";
         }
     }
+    public String getTipo()
+    {
+        return this.tipo;
+    }
     private void sorteiarTipo()
     {
-        this.setTipo(aleatorio(1, 4));
+        this.setTipo(this.aleatorio.sorteiarNumero(1, 4));
     }
 }

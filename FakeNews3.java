@@ -1,10 +1,12 @@
 public class FakeNews3 extends FakeNews {
-    public FakeNews3 (String label){
+    public FakeNews3 (String label)
+    {
         super(label);
     } 
     public void movimentar()
     {
-        int dir = aleatorio(1, 4);
+        //int dir = aleatorio(1, 4);
+        int dir = this.aleatorio.sorteiarNumero(1, 4);
         switch (dir)
         {
             case 1: //noroeste
