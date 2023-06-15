@@ -12,13 +12,13 @@ public class Item extends EntidadeInerte {
         switch (tipo)
         {
             case 1:
-                return "Denunciar Fake News";
+                return "denunciar fake news";
             case 2:
-                return "Fugir";
+                return "fugir";
             case 3:
-                return "Ler uma notícia real";
+                return "ler uma notícia real";
             case 4:
-                return "Ouvir um boato";
+                return "ouvir um boato";
             default: return " ";
         }
     }

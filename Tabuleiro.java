@@ -133,6 +133,9 @@ public class Tabuleiro {
             this.matriz[newL][newC] = f; 
             this.matriz[l][c] = new Setor("  ");
 
+            // gera outro item aleatório no tabuleiro
+            this.gerarItem();
+
             // duplica a fakenews
             this.sorteiarSetorAdjacente(newL, newC);
             if (f instanceof FakeNews1)
@@ -141,9 +144,6 @@ public class Tabuleiro {
                 this.matriz[this.linha][this.coluna] = new FakeNews2("F2");
             else 
                 this.matriz[this.linha][this.coluna] = new FakeNews3("F3");
-
-            // gera outro item aleatório no tabuleiro
-            this.gerarItem();
 
             return "Movimento válido";
         }
@@ -250,5 +250,9 @@ public class Tabuleiro {
         }
         this.setLinha(newL + l);
         this.setColuna(newC + c);
+    }
+    public FakeNews retornarFakeNewsDuplicada()
+    {
+        return (FakeNews) this.matriz[this.linha][this.coluna];
     }
 }
