@@ -6,7 +6,7 @@ public class Item extends EntidadeInerte {
     {
         super(label);
         this.setAleatorio(new Aleatorio());
-        this.sorteiarTipo();
+        this.sortearTipo();
     }
     private void setTipo(int tipo)
     {
@@ -30,8 +30,8 @@ public class Item extends EntidadeInerte {
     {
         return this.tipo;
     }
-    private void sorteiarTipo()
+    private void sortearTipo()
     {
-        this.setTipo(this.aleatorio.sorteiarNumero(1, 4));
+        this.setTipo(this.aleatorio.sortearNumero(1, 4));
     }
 }

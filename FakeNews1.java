@@ -6,7 +6,7 @@ public class FakeNews1 extends FakeNews {
     public void movimentar()
     {
         //int dir = aleatorio(1, 4);
-        int dir = this.aleatorio.sorteiarNumero(1, 4);
+        int dir = this.aleatorio.sortearNumero(1, 4);
         switch (dir)
         {
             case 1: //norte

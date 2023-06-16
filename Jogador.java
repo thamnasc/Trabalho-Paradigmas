@@ -42,7 +42,7 @@ public class Jogador extends EntidadeMovel {
     }  
     public void ouvirBoato()
     {
-        this.setLinha(this.aleatorio.sortearAleatorio(0, 8));
-        this.setColuna(this.aleatorio.sortearAleatorio(0, 8));
+        this.setLinha(this.aleatorio.sortearNumero(0, 8));
+        this.setColuna(this.aleatorio.sortearNumero(0, 8));
     }
 }

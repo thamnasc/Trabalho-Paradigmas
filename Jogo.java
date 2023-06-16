@@ -32,15 +32,12 @@ public class Jogo {
     }
     private void setTurno(int turno)
     {
-        if (turno >= 0)
+        if (turno > 0)
             this.turno = turno;
     }
     public int getTurno()
     {
         return this.turno;
-    }
-    public void incrementarTurno(){
-        this.setTurno(this.turno + 1);
     }
     public Tabuleiro getTabuleiro()
     {
@@ -53,6 +50,9 @@ public class Jogo {
     public LinkedList<FakeNews> getFakeNews()
     {
         return this.fakeNews;
+    }
+    public void incrementarTurno(){
+        this.setTurno(this.turno + 1);
     }
     private void criarJogadores(int numJ)
     {

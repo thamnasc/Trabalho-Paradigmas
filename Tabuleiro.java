@@ -105,7 +105,7 @@ public class Tabuleiro {
             // gera outro item aleatório no tabuleiro
             this.gerarItem();
         
-            return "Movimento válido";
+            return "Capturou um item";
         }
 
         if (e instanceof FakeNews)
@@ -220,8 +220,8 @@ public class Tabuleiro {
         int l, c;
         do
         {
-            l = this.aleatorio.sortearAleatorio(min, max);
-            c = this.aleatorio.sortearAleatorio(min, max);
+            l = this.aleatorio.sortearNumero(min, max);
+            c = this.aleatorio.sortearNumero(min, max);
         } while (!this.matriz[l][c].getLabel().equals("  "));
         this.setLinha(l);
         this.setColuna(c);
@@ -244,8 +244,8 @@ public class Tabuleiro {
             while (linhaInvalida || colunaInvalida)
             {
                 // para variar de -1 a 1
-                newL = this.aleatorio.sortearAleatorio(1, 3) - 2; 
-                newC = this.aleatorio.sortearAleatorio(1, 3) - 2; 
+                newL = this.aleatorio.sortearNumero(1, 3) - 2; 
+                newC = this.aleatorio.sortearNumero(1, 3) - 2; 
                 linhaInvalida = newL + l < 0 || newL + l > 8;
                 colunaInvalida = newC + c < 0 || newC + c > 8;
             }
