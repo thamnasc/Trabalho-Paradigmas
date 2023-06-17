@@ -1,6 +1,5 @@
 public class Item extends EntidadeInerte {
     private String tipo;
-    private Aleatorio aleatorio;
 
     public Item(String label)
     {
@@ -28,10 +27,6 @@ public class Item extends EntidadeInerte {
                 this.tipo = "";
                 break;
         }
-    }
-    private void setAleatorio(Aleatorio a)
-    {
-        this.aleatorio = a;
     }
     public String getTipo()
     {

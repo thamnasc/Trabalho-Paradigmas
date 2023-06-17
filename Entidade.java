@@ -2,6 +2,7 @@ import java.util.Random;
  
 public abstract class Entidade {
     protected String label;
+    protected Aleatorio aleatorio;
     
     public Entidade(String label)
     { 
@@ -10,6 +11,10 @@ public abstract class Entidade {
     public void setLabel(String label)
     {
         this.label = label;
+    }
+    private void setAleatorio(Aleatorio a)
+    {
+        this.aleatorio = a;
     }
     public String getLabel()
     {

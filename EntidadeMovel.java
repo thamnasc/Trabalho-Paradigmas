@@ -1,7 +1,6 @@
 public abstract class EntidadeMovel extends Entidade implements Movimentacao {
     protected int linha;
     protected int coluna;
-    protected Aleatorio aleatorio;
 
     public EntidadeMovel(String label)
     {
@@ -15,10 +14,6 @@ public abstract class EntidadeMovel extends Entidade implements Movimentacao {
     public void setColuna(int coluna) 
     {
         this.coluna = coluna;
-    }
-    private void setAleatorio(Aleatorio a)
-    {
-        this.aleatorio = a;
     }
     public int getLinha() 
     {
