@@ -20,6 +20,8 @@ public class Item extends EntidadeInerte {
                 this.tipo = "ler uma notícia real";
             case 4:
                 this.tipo = "ouvir um boato";
+            default:
+                this.tipo = "";
         }
     }
     private void setAleatorio(Aleatorio a)

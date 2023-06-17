@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
  
 public class Principal {
     public static void main(String[] args) throws InterruptedException {
@@ -9,6 +9,7 @@ public class Principal {
         System.out.print("Digite o número de jogadores que irão participar: ");
 
         int numJ = input.nextInt();
+        int jogadores = numJ;
         Jogo jogo = new Jogo(numJ);
 
         jogo.getTabuleiro().imprimirTabuleiro();
@@ -17,9 +18,9 @@ public class Principal {
         String movimento, comando;
         while (jogo.getTurno() <= 20 && jogo.getFakeNews().size() > 0 && jogo.getJogadores().size() > 0)
         {
-            System.out.println("======= TURNO " + jogo.getTurno() + " =======");
+            System.out.println("\n======= TURNO " + jogo.getTurno() + " =======\n");
 
-            System.out.println("======Turno dos Jogadores======");
+            System.out.println("\n======Turno dos Jogadores======\n");
             int turnosJ = 0;
             numJ = jogo.getJogadores().size();
             while (turnosJ < numJ)
@@ -41,6 +42,7 @@ public class Principal {
                         movimento = "Movimento inválido";
                         while (movimento.equals("Movimento inválido"))
                         {
+                            j.setOuviuBoato(true);
                             j.ouvirBoato();
                             movimento = jogo.getTabuleiro().movimentarEntidade(oldL, oldC);
                             if (movimento.equals("Eliminado"))
@@ -52,6 +54,7 @@ public class Principal {
                                 System.out.println(j.getLabel()+" capturou um item!");
                                 jogo.getJogadores().addLast(j);
                             }
+                            j.setOuviuBoato(false);
                         }
                     }
                     else 
@@ -60,8 +63,19 @@ public class Principal {
                         System.out.println("Por favor, digite S ou N");
                         comando = input.nextLine().toLowerCase();
                         if (comando.equals("s"))
-                            //executa
-                            System.out.println("Ainda preciso ser implementado!");
+                        {
+                            if (item.equals("denunciar fake news"))
+                            {
+                                jogo.getTabuleiro().denunciarFakeNews(oldL, oldC);
+                                System.out.println(j.getLabel()+" denunciou fake news a sua volta!");
+                            }
+                            if (item.equals("ler uma notícia real"))
+                            {
+                                LinkedList<FakeNews> fakeNews = jogo.getTabuleiro().lerNoticiaReal(jogo.getFakeNews());
+                                jogo.setFakenews(fakeNews);
+                                System.out.println(j.getLabel()+" leu uma notícia real e uma fake news foi eliminada!");
+                            }
+                        }
                     }
                     j.setItem(null);
                 }
@@ -79,6 +93,7 @@ public class Principal {
                             jogo.getJogadores().addLast(j);
                         else if (movimento.equals("Capturou um item"))
                         {
+                            item = j.getItem().getTipo();
                             System.out.println(j.getLabel()+" capturou um item!");
                             jogo.getJogadores().addLast(j);
                         }
@@ -92,7 +107,7 @@ public class Principal {
             if (jogo.getJogadores().size() > 0)
             {
                 Thread.sleep(2000);
-                System.out.println("======Turno das FakeNews======");
+                System.out.println("\n======Turno das FakeNews======\n");
                 int numF = jogo.getFakeNews().size();
                 int turnosF = 0;
                 while (turnosF < numF)
@@ -126,37 +141,16 @@ public class Principal {
                 jogo.incrementarTurno();
             }
         }
-            
 
-
-        
-        /* ----------------THALI TESTE------------------------------
-        while (!movimento.equals("Eliminado"))
+        if (jogo.getFakeNews().size() == 0)
         {
-            j1.setComando(input.nextLine());
-            movimento = jogo.getTabuleiro().movimentarPersonagem(j1.getLinha(),j1.getColuna());
-            System.out.println(movimento);
-            if (movimento.equals("Eliminado"))
-                System.out.println(j1.getLabel()+" foi eliminado!");
-            if (movimento.equals(" capturou um item"))
-                System.out.println(j1.getLabel() + movimento + " do tipo " + j1.getItem().getTipo());
-            jogo.getTabuleiro().imprimirTabuleiro();
-
-        } 
-
-        /*String movimento = "Movimento inválido";
-        while (!movimento.equals("Eliminado"))
-        {
-            int oldL = f.getLinha(), oldC = f.getColuna();
-            movimento = jogo.getTabuleiro().movimentarPersonagem(oldL,oldC);
-            System.out.print(f.getLabel()+" andou da posição ["+(oldL+1)+"]["+(oldC+1)+"]");
-            System.out.println(" para ["+(f.getLinha()+1)+"]["+(f.getColuna()+1)+"]");
-            System.out.println(movimento);
-            if (movimento.equals("Eliminado"))
-                System.out.println(f.getLabel()+" foi eliminado!");
-            jogo.getTabuleiro().imprimirTabuleiro();
-            Thread.sleep(2000);
-        } */
+            if (jogadores == 1)
+                System.out.println("Você conseguiu fugir das fake news! Parabéns!");
+            else
+                System.out.println("Os jogadores derrotaram todas as fake news!");
+        }   
+        else if (jogo.getTurno() > 20)
+            System.out.println("Game Over!");
 
     }
     public static void imprimirMenu()

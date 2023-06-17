@@ -22,7 +22,7 @@ public class Jogo {
     {
         this.jogadores = j;
     }
-    private void setFakenews(LinkedList<FakeNews> f)
+    public void setFakenews(LinkedList<FakeNews> f)
     {
         this.fakeNews = f;
     }

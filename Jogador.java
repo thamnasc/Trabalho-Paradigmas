@@ -1,10 +1,12 @@
 public class Jogador extends EntidadeMovel {
     private Item item;
     private String comando;
+    private boolean ouviuBoato;
      
     public Jogador(String label)
     {
         super(label);
+        this.setOuviuBoato(false);
     }
     public void setItem(Item item)
     {
@@ -18,27 +20,32 @@ public class Jogador extends EntidadeMovel {
     {
         this.comando = comando;
     }
+    public void setOuviuBoato(boolean b)
+    {
+        this.ouviuBoato = b;
+    }
     public void movimentar()
     {
-        switch (this.comando.toLowerCase())
-        {
-            case "n":
-                this.setLinha(this.linha-1);
-                break;
-            case "s":
-                this.setLinha(this.linha+1);
-                break;
-            case "l":
-                this.setColuna(this.coluna+1);
-                break;
-            case "o":
-                this.setColuna(this.coluna-1);
-                break;
-            default:
-                this.setLinha(-1);
-                this.setColuna(-1);
-                break;
-        }
+        if (!this.ouviuBoato)
+            switch (this.comando.toLowerCase())
+            {
+                case "n":
+                    this.setLinha(this.linha-1);
+                    break;
+                case "s":
+                    this.setLinha(this.linha+1);
+                    break;
+                case "l":
+                    this.setColuna(this.coluna+1);
+                    break;
+                case "o":
+                    this.setColuna(this.coluna-1);
+                    break;
+                default:
+                    this.setLinha(-1);
+                    this.setColuna(-1);
+                    break;
+            }
     }  
     public void ouvirBoato()
     {

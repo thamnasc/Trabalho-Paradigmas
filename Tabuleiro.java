@@ -143,12 +143,16 @@ public class Tabuleiro {
 
             // duplica a fakenews
             this.sorteiarSetorAdjacente(newL, newC);
+            FakeNews fx2;
             if (f instanceof FakeNews1)
-                this.matriz[this.linha][this.coluna] = new FakeNews1("F1");
+                fx2 = (FakeNews1) new FakeNews1("F1");
             else if (f instanceof FakeNews2)
-                this.matriz[this.linha][this.coluna] = new FakeNews2("F2");
+                fx2 = (FakeNews2) new FakeNews2("F2");
             else 
-                this.matriz[this.linha][this.coluna] = new FakeNews3("F3");
+                fx2 = (FakeNews3) new FakeNews3("F3");
+            fx2.setLinha(this.linha);
+            fx2.setColuna(this.coluna);
+            this.matriz[this.linha][this.coluna] = fx2;
 
             return "Duplicada";
         }
@@ -183,7 +187,7 @@ public class Tabuleiro {
                 System.out.print("|"+this.matriz[i][j]);
             System.out.println("|");
         }
-        System.out.println(divisoria);
+        System.out.println(divisoria+"\n");
     }
     private void inicializarTabuleiro()
     {
@@ -257,7 +261,30 @@ public class Tabuleiro {
         this.setColuna(newC + c);
     }
     public FakeNews retornarFakeNewsDuplicada()
-    {
+    { 
         return (FakeNews) this.matriz[this.linha][this.coluna];
+    }
+
+    public void denunciarFakeNews(int l, int c)
+    {
+        for (int i = -1; i <= 1; i++)
+            for (int j = -1; j <= 1; j++)
+            {
+                int lAdj = l+i;
+                int cAdj = c+j;
+                boolean linhaValida = lAdj >= 0 && lAdj <= 8;
+                boolean colunaValida = cAdj >= 0 && cAdj <= 8;
+                if (linhaValida && colunaValida)
+                    if (this.matriz[lAdj][cAdj] instanceof FakeNews)
+                        this.matriz[lAdj][cAdj] = new Setor("  ");
+            }
+    }
+
+    public LinkedList<FakeNews> lerNoticiaReal(LinkedList<FakeNews> f)
+    {
+        int size = f.size();
+        int i = this.aleatorio.sortearNumero(0, size-1);
+        f.remove(i);
+        return f;
     }
 }
