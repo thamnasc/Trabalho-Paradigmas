@@ -14,14 +14,19 @@ public class Item extends EntidadeInerte {
         {
             case 1:
                 this.tipo = "denunciar fake news";
+                break;
             case 2:
                 this.tipo = "fugir";
+                break;
             case 3:
                 this.tipo = "ler uma notícia real";
+                break;
             case 4:
                 this.tipo = "ouvir um boato";
+                break;
             default:
                 this.tipo = "";
+                break;
         }
     }
     private void setAleatorio(Aleatorio a)

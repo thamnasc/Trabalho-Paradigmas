@@ -1,5 +1,8 @@
 import java.util.*;
- 
+/* Trabalho realizado pelas alunas
+    Isabela da Silva Barata     GRR20213395
+    Thalita Maria do Nascimento GRR20211079
+ */
 public class Principal {
     public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
