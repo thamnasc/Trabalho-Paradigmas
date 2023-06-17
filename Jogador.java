@@ -52,4 +52,9 @@ public class Jogador extends EntidadeMovel {
         this.setLinha(this.aleatorio.sortearNumero(0, 8));
         this.setColuna(this.aleatorio.sortearNumero(0, 8));
     }
+    @Override
+    public String toString()
+    {
+        return String.format(Cores.ANSI_GREEN + " " + this.label + " " + Cores.ANSI_RESET);
+    }
 }

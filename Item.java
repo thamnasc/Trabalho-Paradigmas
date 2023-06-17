@@ -41,4 +41,9 @@ public class Item extends EntidadeInerte {
     {
         this.setTipo(this.aleatorio.sortearNumero(1, 4));
     }
+    @Override
+    public String toString()
+    {
+        return String.format(Cores.ANSI_YELLOW + " " + this.label + " " + Cores.ANSI_RESET);
+    }
 }
