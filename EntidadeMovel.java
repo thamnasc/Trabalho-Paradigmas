@@ -5,7 +5,6 @@ public abstract class EntidadeMovel extends Entidade implements Movimentacao {
     public EntidadeMovel(String label)
     {
         super(label);
-        this.setAleatorio(new Aleatorio());
     } 
     public void setLinha(int linha)
     {

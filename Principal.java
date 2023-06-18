@@ -6,9 +6,7 @@ import java.util.*;
 public class Principal {
     public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Mínimo de jogadores: 1.");
-        System.out.println("Máximo de jogadores: 4.");
+        imprimirMenu();
         System.out.print("Digite o número de jogadores que irão participar: ");
 
         int numJ = input.nextInt();
@@ -156,11 +154,27 @@ public class Principal {
             System.out.println("Game Over!");
 
     }
-    public static void imprimirMenu()
-    {
-        /*         System.out.println("Digite S para movimentar em direção ao sul");
-        System.out.println("N em direção ao norte");
-        System.out.println("L em direção ao leste e");
-        System.out.println("O em direção ao oeste"); */
+public static void imprimirMenu(){
+    System.out.println("============== JOGO CORRA DAS FAKE NEWS ===============");
+    System.out.println("===== O jogo consiste em eliminar todas as fake news do tabuleiro antes de ser eliminado por elas ==");
+    System.out.print("\n");
+    System.out.println("=== Elementos do jogo: ");
+    System.out.println("-> F1, F2, F3: representam os 3 tipos de fake news, diferentes apenas no modo que se movimentam.");
+    System.out.println("-> ??: representa um ITEM, que pode ser de quatro tipos: ");
+    System.out.println("#### Item 1: denunciar fake news. Permite denunciar qualquer fake news em volta do joador, eliminando-as.");
+    System.out.println("#### Item 2: fugir. Permite que o jogador se mova para qualquer posição do tabuleiro.");
+    System.out.println("#### Item 3: ler uma noticia real. Permite que o jogador elimina uma fake news qualquer.");
+    System.out.println("#### Item 4: ouvir um boato. Esse é o item ruim e faz com que no próximo turno o movimento do jogador seja aleatório.");
+    System.out.println("-> J1, J2, J3, J4: representa cada um dos jogadores.");
+    System.out.print("\n");
+    System.out.println("=== As possíveis direções para movimentar um jogador são NORTE, SUL, LESTE OU OESTE.===");
+    System.out.println("Digite S para movimentar em direção ao sul;");
+    System.out.println("# Digite N para direção norte;");
+    System.out.println("# Digite L para direção leste;");
+    System.out.println("# Digite O para direção oeste."); 
+    System.out.print("\n");
+    System.out.println("Minimo de jogadores: 1.");
+    System.out.println("Máximo de jogadores: 4.");
+    System.out.println("======= BOA SORTE! E que o jogo comece! ========");
     }
 }

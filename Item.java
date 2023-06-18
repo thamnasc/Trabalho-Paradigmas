@@ -4,7 +4,6 @@ public class Item extends EntidadeInerte {
     public Item(String label)
     {
         super(label);
-        this.setAleatorio(new Aleatorio());
         this.sortearTipo();
     }
     private void setTipo(int tipo)

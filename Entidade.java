@@ -7,6 +7,7 @@ public abstract class Entidade {
     public Entidade(String label)
     { 
         this.setLabel(label);
+        this.setAleatorio(new Aleatorio());
     }
     public void setLabel(String label)
     {
