@@ -61,13 +61,19 @@ public class Principal {
                     else 
                     {
                         System.out.println(j.getLabel()+", você gostaria de executar a ação "+item+"?");
-                        System.out.println("Por favor, digite S ou N");
-                        comando = input.nextLine().toLowerCase();
+                        comando = " ";
+                        while (!comando.equals("s") && !comando.equals("n"))
+                        {
+                            System.out.println("Por favor, digite S ou N");
+                            comando = input.next().toLowerCase();
+                            System.out.println();
+                        }
                         if (comando.equals("s"))
                         {
                             if (item.equals("denunciar fake news"))
                             {
-                                jogo.getTabuleiro().denunciarFakeNews(oldL, oldC);
+                                LinkedList<FakeNews> fakeNews = jogo.getTabuleiro().denunciarFakeNews(jogo.getFakeNews(),oldL, oldC);
+                                jogo.setFakenews(fakeNews);
                                 System.out.println(j.getLabel()+" denunciou fake news a sua volta!");
                             }
                             if (item.equals("ler uma notícia real"))
@@ -76,11 +82,13 @@ public class Principal {
                                 jogo.setFakenews(fakeNews);
                                 System.out.println(j.getLabel()+" leu uma notícia real e uma fake news foi eliminada!");
                             }
+                            jogo.getTabuleiro().imprimirTabuleiro();  
                         }
                     }
                     j.setItem(null);
                 }
-                if ((comando.equals("s") && !item.equals("fugir")) || comando.equals("n"))  
+                // após "denunciar fanekews" ou "ler uma notícia real", pode ser que nenhuma fakenews tenha sobradp
+                if (((comando.equals("s") && !item.equals("fugir")) || comando.equals("n")) && jogo.getFakeNews().size() > 0)
                 {
                     movimento = "Movimento inválido";
                     while (movimento.equals("Movimento inválido"))
@@ -111,7 +119,7 @@ public class Principal {
                 System.out.println("\n======Turno das FakeNews======\n");
                 int numF = jogo.getFakeNews().size();
                 int turnosF = 0;
-                while (turnosF < numF)
+                while (turnosF < numF && jogo.getJogadores().size() > 0)
                 {
                     FakeNews f = jogo.getFakeNews().pollFirst();
                     movimento = "Movimento inválido";
@@ -130,7 +138,16 @@ public class Principal {
                             jogo.getFakeNews().addLast(jogo.getTabuleiro().retornarFakeNewsDuplicada());
                         }
                         else if (movimento.equals("Eliminado"))
-                            System.out.println(f.getLabel()+" foi eliminado!");
+                            System.out.println(f.getLabel()+" foi eliminada!");
+                            
+                        else if (movimento.equals("Eliminou jogador"))
+                        {
+                            Jogador j = jogo.getTabuleiro().retornarJogadorEliminado();
+                            System.out.println(j.getLabel()+" foi eliminado!");
+                            jogo.getJogadores().remove(j);
+                            jogo.getFakeNews().addLast(f);
+                        }
+                        
                     }
                     System.out.print(f.getLabel()+" andou da posição ["+(oldL+1)+"]["+(oldC+1)+"]");
                     System.out.println(" para ["+(f.getLinha()+1)+"]["+(f.getColuna()+1)+"]");
@@ -150,7 +167,7 @@ public class Principal {
             else
                 System.out.println("Os jogadores derrotaram todas as fake news!");
         }   
-        else if (jogo.getTurno() > 20)
+        else if (jogo.getTurno() > 20 || jogo.getJogadores().size() == 0)
             System.out.println("Game Over!");
 
     }

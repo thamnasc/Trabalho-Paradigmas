@@ -18,7 +18,7 @@ public class Jogo {
         this.setTabuleiro(tabuleiro);
         this.setTurno(1);
     }
-    private void setJogadores(LinkedList<Jogador> j)
+    public void setJogadores(LinkedList<Jogador> j)
     {
         this.jogadores = j;
     }

@@ -5,6 +5,7 @@ public class Tabuleiro {
     private int linha;
     private int coluna;
     private Aleatorio aleatorio;
+    private Jogador jEliminado;
 
     public Tabuleiro(LinkedList<Jogador> j, LinkedList<FakeNews> f)
     { 
@@ -159,9 +160,10 @@ public class Tabuleiro {
 
         if (e instanceof Jogador)
         {
+            this.jEliminado = (Jogador) this.matriz[newL][newC];
             this.matriz[newL][newC] = f;
             this.matriz[l][c] = new Setor("  ");
-            // elimina jogador
+            return "Eliminou jogador";
         }
 
         if (e instanceof FakeNews)
@@ -175,6 +177,10 @@ public class Tabuleiro {
         this.matriz[newL][newC] = f;
         this.matriz[l][c] = new Setor("  ");
         return "Movimento válido";
+    }
+    public Jogador retornarJogadorEliminado()
+    {
+        return this.jEliminado;
     }
     public void imprimirTabuleiro()
     {
@@ -265,7 +271,7 @@ public class Tabuleiro {
         return (FakeNews) this.matriz[this.linha][this.coluna];
     }
 
-    public void denunciarFakeNews(int l, int c)
+    public LinkedList<FakeNews> denunciarFakeNews(LinkedList<FakeNews> f, int l, int c)
     {
         for (int i = -1; i <= 1; i++)
             for (int j = -1; j <= 1; j++)
@@ -276,14 +282,29 @@ public class Tabuleiro {
                 boolean colunaValida = cAdj >= 0 && cAdj <= 8;
                 if (linhaValida && colunaValida)
                     if (this.matriz[lAdj][cAdj] instanceof FakeNews)
+                    {
+                        Iterator<FakeNews> iterator = f.iterator();
+                        int index = -1, foundIndex = -1;
+
+                        while(iterator.hasNext())
+                        {
+                            index++;
+                            FakeNews fakeNews = iterator.next();
+                            if (fakeNews.getLinha() == lAdj && fakeNews.getColuna() == cAdj)
+                                foundIndex = index;
+                        }
+                        f.remove(foundIndex);
                         this.matriz[lAdj][cAdj] = new Setor("  ");
+                    }
             }
+        return f;
     }
 
     public LinkedList<FakeNews> lerNoticiaReal(LinkedList<FakeNews> f)
     {
         int size = f.size();
         int i = this.aleatorio.sortearNumero(0, size-1);
+        this.matriz[f.get(i).getLinha()][f.get(i).getColuna()] = new Setor("  ");
         f.remove(i);
         return f;
     }
