@@ -195,6 +195,25 @@ public class Tabuleiro {
         }
         System.out.println(divisoria+"\n");
     }
+    public void imprimirTabuleiroParaFugir()
+    {
+        String divisoria = "  +----+----+----+----+----+----+----+----+----+";
+        String numeros = "    1    2    3    4    5    6    7    8    9";
+        System.out.println(numeros);
+
+        for (int i = 0; i < 9; i++)
+        {
+            System.out.println(divisoria);
+            for (int j = 0; j < 9; j++) 
+            {
+                if (j == 0)
+                    System.out.print((i+1)+" ");
+                System.out.print("|"+this.matriz[i][j]);
+            }
+            System.out.println("|");
+        }
+        System.out.println(divisoria+"\n");
+    }
     private void inicializarTabuleiro()
     {
         for (int i = 0; i < 9; i++)

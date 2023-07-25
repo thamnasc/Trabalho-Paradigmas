@@ -20,7 +20,6 @@ public class Principal {
         while (jogo.getTurno() <= 20 && jogo.getFakeNews().size() > 0 && jogo.getJogadores().size() > 0)
         {
             System.out.println("\n======= TURNO " + jogo.getTurno() + " =======\n");
-
             System.out.println("\n======Turno dos Jogadores======\n");
             int turnosJ = 0;
             numJ = jogo.getJogadores().size();
@@ -82,12 +81,41 @@ public class Principal {
                                 jogo.setFakenews(fakeNews);
                                 System.out.println(j.getLabel()+" leu uma notícia real e uma fake news foi eliminada!");
                             }
+                            if (item.equals("fugir")) 
+                            {
+                                jogo.getTabuleiro().imprimirTabuleiroParaFugir();
+
+                                movimento = "Movimento inválido";
+                                while (movimento.equals("Movimento inválido"))
+                                {                 
+                                    System.out.println("Por favor, insira uma linha de 1 a 9: ");
+                                    int linha = input.nextInt();
+                                    System.out.println("Por favor, insira uma coluna de 1 a 9: ");
+                                    int coluna = input.nextInt();
+                                    j.setLinha(linha-1);
+                                    j.setColuna(coluna-1);
+                                    j.setFugiu(true);
+                                    System.out.println(j.getLabel()+" moveu-se para a posição ["+linha+"]["+coluna+"]");
+                                    movimento = jogo.getTabuleiro().movimentarEntidade(oldL, oldC);
+                                    if (movimento.equals("Eliminado"))
+                                        System.out.println(j.getLabel()+" foi eliminado!");
+                                    else if (movimento.equals("Movimento válido"))
+                                        jogo.getJogadores().addLast(j);
+                                    else if (movimento.equals("Capturou um item"))
+                                    {
+                                        item = j.getItem().getTipo();
+                                        System.out.println(j.getLabel()+" capturou um item!");
+                                        jogo.getJogadores().addLast(j);
+                                    }
+                                    j.setFugiu(false);
+                                } 
+                            }
                             jogo.getTabuleiro().imprimirTabuleiro();  
                         }
                     }
                     j.setItem(null);
                 }
-                // após "denunciar fanekews" ou "ler uma notícia real", pode ser que nenhuma fakenews tenha sobradp
+                // após "denunciar fanekews" ou "ler uma notícia real", pode ser que nenhuma fakenews tenha sobrado
                 if (((comando.equals("s") && !item.equals("fugir")) || comando.equals("n")) && jogo.getFakeNews().size() > 0)
                 {
                     movimento = "Movimento inválido";

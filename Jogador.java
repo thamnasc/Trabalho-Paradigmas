@@ -2,11 +2,13 @@ public class Jogador extends EntidadeMovel {
     private Item item;
     private String comando;
     private boolean ouviuBoato;
+    private boolean fugiu;
      
     public Jogador(String label)
     {
         super(label);
         this.setOuviuBoato(false);
+        this.setFugiu(false);
     }
     public void setItem(Item item)
     {
@@ -24,9 +26,13 @@ public class Jogador extends EntidadeMovel {
     {
         this.ouviuBoato = b;
     }
+    public void setFugiu(boolean f)
+    {
+        this.fugiu = f;
+    }
     public void movimentar()
     {
-        if (!this.ouviuBoato)
+        if (!this.ouviuBoato && !this.fugiu)
             switch (this.comando.toLowerCase())
             {
                 case "n":
